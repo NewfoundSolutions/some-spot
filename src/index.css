@@ -1,0 +1,14 @@
+body {
+    background-color: #233D4D;
+    margin: 0;
+    font-family:Arial, Helvetica, sans-serif;
+}
+.map{
+    width: 100vw;
+    height: 80vh;
+    position: relative;
+}
+.location-icon {
+    font-size: 2rem;
+    color: red;
+}
