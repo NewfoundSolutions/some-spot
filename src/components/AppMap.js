@@ -1,7 +1,6 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
-import '../config/keys.js';
 import { mapKey } from '../config/keys.js';
 
 //{name: 'Signal Hill', lat: '47.5697', lng:'-52.6819' },
@@ -54,7 +53,7 @@ class AppMap extends React.Component {
             name={entry.name} 
             lat={entry.lat} 
             lng={entry.lng} 
-            active={(this.props.active === this.props.id)} 
+            active={(this.props.active === this.props.id).toString()} 
             updateParent={this.updateParent.bind(this)}/>)}
            
             

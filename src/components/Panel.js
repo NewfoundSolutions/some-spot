@@ -1,14 +1,16 @@
 import React from 'react'
 
-const placeholder = 'A description of the location chosen goes here, prior to that it contains a blurb about the project.';
+const placeholder = 'This is very much a work in progress, once done pins will represent images or stories users have uploaded with the option to have both private and public pins.';
 
 const Panel = (props) => {
+    const fakeBlurb =`Visit scenic ${props.placeName} which, like the rest of us must be here for SOME reason`;
     return (
-        <div>
-         {props.active ? props.placeName : placeholder }
+        <>
+        <p>
+         {props.active ? fakeBlurb : placeholder }
         
-           
-        </div>
+         </p>
+        </>
     )
 }
 Panel.defaultProps = {
