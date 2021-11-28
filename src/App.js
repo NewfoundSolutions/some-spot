@@ -11,13 +11,15 @@ class App extends React.Component{
     super(props);
     this.state = {
       active: null,
-      name: ''
+      name: '',
+      loginModal: false,
+
     }
   }
  
   updateActive (t){
     this.setState(t)
- 
+    //todo: Sanity checking
   }
   render () {
   return (
