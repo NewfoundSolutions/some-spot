@@ -2,20 +2,25 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import Container from 'react-bootstrap/Container';
-
-const TopBar = () => {
+import LoginModal from './LoginModal'
+class TopBar extends React.Component {
+  updateParent(value) {
+      this.props.updateActive(value);
+  }
+  
+  render (){
   return (
     <Navbar bg="dark" variant="dark" fixed="top" >
       <Container fluid >
         <Navbar.Brand href="#home">Some Spot B'y</Navbar.Brand>
     <Nav className="ml-auto" >
-      <Nav.Link href="#login" >Login</Nav.Link>
+      <LoginModal updateParent={this.updateParent.bind(this)}/>
     </Nav>
     
     
     </Container>
   </Navbar>
-  )
+ )
 }
-
+}
 export default TopBar

@@ -24,7 +24,7 @@ class App extends React.Component{
   render () {
   return (
     <div className="App">
-      <TopBar />
+      <TopBar loginModal = {this.state.loginModal} updateActive= {this.updateActive.bind(this)}/>
       <AppMap active = {this.state.active} updateActive= {this.updateActive.bind(this)}/>
       <Panel active = {this.state.active} placeName={this.state.name}/>
     <footer>A WIP by Tim Peddle</footer>

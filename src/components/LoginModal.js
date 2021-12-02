@@ -2,7 +2,11 @@ import React from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 //just a skeleton from 
 
-const LoginModal = () => {
+
+
+class LoginModal extends React.Component {
+  
+  render (){
   return (
     <>
       <Modal.Dialog>
@@ -12,7 +16,7 @@ const LoginModal = () => {
 
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="loginFormEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" placeholder="Enter email" />
               <Form.Text className="text-muted">
@@ -20,9 +24,12 @@ const LoginModal = () => {
               </Form.Text>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-3" controlId="loginFormPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="Password" />
+              <Form.Text className="text-muted">
+                And stop reusing the same password everywhere, There's skeets on the go. 
+              </Form.Text>
             </Form.Group>
             <Button variant="primary" type="submit">
               Sign In
@@ -39,7 +46,7 @@ const LoginModal = () => {
         </Modal.Footer>
       </Modal.Dialog>
     </>
-  );
-};
-
+  )
+}
+}
 export default LoginModal;
