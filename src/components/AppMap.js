@@ -2,15 +2,30 @@ import React from "react";
 import GoogleMapReact from "google-map-react";
 import Marker from "./Marker";
 import { mapKey } from "../config/keys.js";
-import { tempLocations } from "../config/tempLocations.js";
 
 //{name: 'Signal Hill', lat: '47.5697', lng:'-52.6819' }
 
 class AppMap extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      markers: [],
+    };
+  }
+
   updateParent(value) {
     this.props.updateActive(value);
   }
 
+  componentDidMount() {
+    fetch("http://localhost:3001/markers/list")
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState(() => {
+          return { markers: responseJson.data };
+        });
+      });
+  }
   render() {
     return (
       <div className="map">
@@ -19,11 +34,11 @@ class AppMap extends React.Component {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >
-          {/* TEMP Populate Map */}
-          {tempLocations.map((entry, i) => (
+          {/* Populate Map */}
+          {this.state.markers.map((entry, i) => (
             <Marker
               key={i}
-              id={i}
+              id={entry.id}
               name={entry.name}
               lat={entry.lat}
               lng={entry.lng}
