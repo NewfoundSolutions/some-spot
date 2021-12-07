@@ -55,7 +55,8 @@ class Upload extends React.Component {
       return (
         <div>
           <br />
-          <h4>Choose before Pressing the Upload button</h4>
+          <h4>No need to upload the image.</h4>
+          <h6>We can extract the location information for you here, but feel free to upload the image if you'd like to share or show off!</h6>
         </div>
       );
     }
@@ -65,8 +66,8 @@ class Upload extends React.Component {
     console.log(this.state.selectedFile);
     return (
       <div>
-        <h1>Upload an Image</h1>
-        <h3>Map your Memories!</h3>
+        <h1>Map your Memories!</h1>
+        
         <div>
           <input type="file" onChange={this.onFileChange} />
           <button onClick={this.onFileUpload}>Upload!</button>

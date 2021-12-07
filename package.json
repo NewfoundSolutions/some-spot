@@ -17,7 +17,7 @@
   },
   "scripts": {
     "server-install": "npm install --prefix backend",
-    "server":"nodemon ./backend/index.js",
+    "server":"cd backend && npm start",
     "start": "react-scripts start",
     "dev": "concurrently \"npm run server\" \"npm run start\"",
     "build": "react-scripts build",

@@ -34,7 +34,7 @@ class AppMap extends React.Component {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >
-          {/* Populate Map */}
+          {/* Populate above map with markers */}
           {this.state.markers.map((entry, i) => (
             <Marker
               key={i}

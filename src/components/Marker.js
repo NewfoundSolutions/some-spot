@@ -9,10 +9,9 @@ const markerStyles = {
 class Marker extends React.Component {
   handleClick(e) {
     this.props.updateParent({
-      active: e.currentTarget.id,
+      active: e.currentTarget._id,
       name: e.currentTarget.getAttribute("name"),
     });
-    // console.log(`${e.currentTarget.id} is the Active Element.`)
     console.log(e.currentTarget.getAttribute("name"));
   }
 
@@ -23,7 +22,7 @@ class Marker extends React.Component {
         style={markerStyles}
         name={this.props.name}
         key={this.props.key}
-        id={this.props.id}
+        id={this.props._id}
         lat={this.props.lat}
         lng={this.props.lng}
         active={this.props.active}

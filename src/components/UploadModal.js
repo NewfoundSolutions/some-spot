@@ -24,10 +24,6 @@ function UploadModal() {
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Dialog>
-          <Modal.Header closeButton>
-            <Modal.Title>Mark a new Memory!</Modal.Title>
-          </Modal.Header>
-
           <Modal.Body>
             <Upload />
           </Modal.Body>
