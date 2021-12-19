@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cloudinary = require("cloudinary")
 const config = require("config");
 
 const cors = require("cors");
@@ -17,7 +18,11 @@ app.use(bodyParser.json());
 
 //dbconfig 
 const db = config.get('mongoURI');
-
+cloudinary.config({ 
+  cloud_name: config.get('cloudName'), 
+  api_key: config.get('cloudKey'), 
+  api_secret: config.get('cloudSecret') 
+});
 
 mongoose
 .connect(db)

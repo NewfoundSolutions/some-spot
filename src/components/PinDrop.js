@@ -1,21 +1,26 @@
-import React from 'react'
-import {Button} from 'react-bootstrap'
-
-const getPosition = () => {
-    navigator.geolocation ? navigator.geolocation.getCurrentPosition(success) : 
-}
-const success = () => {
-    pos.coords.latitude;
-}
-
-
+import React from "react";
+import { Button } from "react-bootstrap";
 
 const PinDrop = () => {
-    return (
-        <>
-          <Button onClick={getPosition()}>Make a Memory Here!</Button>  
-        </>
-    )
-}
+  const success = (pos) => {
+    const pin = { lat: pos.coords.latitude, long: pos.coords.longitude };
+    console.log(pin);
+  };
 
-export default PinDrop
+  return (
+    <>
+      <p>Or skip the pictures all together, and use your current location</p>
+      <Button
+        onClick={() => {
+          return navigator.geolocation
+            ? navigator.geolocation.getCurrentPosition(success)
+            : { lat: 0, long: 0 };
+        }}
+      >
+        Make a Memory Here!
+      </Button>
+    </>
+  );
+};
+
+export default PinDrop;

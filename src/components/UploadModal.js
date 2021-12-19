@@ -2,11 +2,12 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
-import Upload from "./Upload";
+import Uploader from "./Uploader";
+import PinDrop from "./PinDrop"
 
 const iconStyle = {
   color: "#006400",
-  fontSize: "1.5rem",
+  fontSize: "1.4rem",
 };
 
 function UploadModal() {
@@ -25,10 +26,9 @@ function UploadModal() {
       <Modal show={show} onHide={handleClose}>
         <Modal.Dialog>
           <Modal.Body>
-            <Upload />
+            <Uploader />
           </Modal.Body>
-
-          <Modal.Footer></Modal.Footer>
+            <PinDrop />
         </Modal.Dialog>
       </Modal>
     </>
