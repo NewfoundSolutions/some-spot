@@ -37,11 +37,11 @@ router.get("/list/:id", async (req, res) => {
 });
 
 router.post("/upload-pic", async (req, res) => {
-  console.log(req.body);
+  
   try {
-    console.log(req.body);
+    console.log(req.file);
     const data = {
-      image: req.body.image,
+      image: req.file,
     };
 
     // make uuid and pass to cloudinary
@@ -55,8 +55,9 @@ router.post("/upload-pic", async (req, res) => {
         });
       })
       .catch((error) => {
+        console.log(error);
         res.status(500).send({
-          message: "failure",
+          message: "failure in uploader",
           error,
         });
       });
