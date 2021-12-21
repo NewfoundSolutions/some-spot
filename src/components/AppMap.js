@@ -18,7 +18,7 @@ class AppMap extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3001/markers/list")
+    fetch("http://192.168.0.14:3001/markers/list")
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState(() => {

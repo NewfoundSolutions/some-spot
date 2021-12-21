@@ -1,36 +1,31 @@
 import React from "react";
 import axios from "axios";
 
-
 class Uploader extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       selectedFile: {},
+      name: "",
     };
   }
-  
 
-  onFileChange = async(event) => {
-
-    const targetImage = Array(event.target.files[0]);
-    this.setState({ selectedFile: targetImage[0] });
-    console.log(this.state.selectedFile);
-   
-    
+  onNameChange = (event) => {
+    this.setState({ name: event.target.value });
   };
 
-  onFileUpload = () => {
+  onFileChange = (event) => {
+    const targetImage = Array(event.target.files[0]);
+    this.setState({ selectedFile: targetImage[0] });
+  };
+
+  onFileUpload = async () => {
     const formData = new FormData();
-    formData.append("file",
-      this.state.selectedFile
-    );
-
-    console.log(formData);
-
+    formData.append("name", this.state.name);
+    formData.append("files", this.state.selectedFile);
     axios
-      .post("http://localhost:3001/markers/upload-pic", formData)
-      .then((res) => console.log("response recieved"))
+      .post("http://192.168.0.14:3001/markers/upload-pic", formData)
+      .then((res) => console.log("response recieved:" + res))
       .catch((err) => console.log(err));
   };
 
@@ -38,11 +33,25 @@ class Uploader extends React.Component {
     return (
       <div>
         <h1>Map your Memories!</h1>
-        <div>
-          <input type="file" onChange={this.onFileChange} />
-          <button onClick={this.onFileUpload}>Upload!</button>
-          <br />
-        </div>
+        <form id="form">
+          <div className="input-group">
+            <label htmlFor="name">Name </label>
+            <input
+              name="name"
+              id="name"
+              onChange={this.onNameChange}
+              placeholder="Name the Spot"
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="files">Select files</label>
+          </div>
+          <input id="files" type="file" onChange={this.onFileChange} />
+          <button type="button" onClick={this.onFileUpload}>
+            Upload!
+          </button>
+        </form>
+        <br />
       </div>
     );
   }

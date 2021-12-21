@@ -2,9 +2,18 @@ const express = require("express");
 const router = express.Router();
 const markers = require("../data/tempLocations");
 const Spot = require("../models/Spot");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 const { v4: uuid } = require("uuid");
+var exifr = require('exifr');
 
 var cloudinary = require("cloudinary").v2;
+
+
+const getGPS = async (imgPath) => {
+  let {latitude, longitude} = await exifr.gps(imgPath)
+  return {lat: latitude, long:longitude}
+}
 
 router.get("/list", async (req, res) => {
   try {
@@ -36,23 +45,21 @@ router.get("/list/:id", async (req, res) => {
   }
 });
 
-router.post("/upload-pic", async (req, res) => {
-  
+router.post("/upload-pic", upload.single("files"), (req, res) => {
   try {
-    console.log(req.file);
     const data = {
-      image: req.file,
+      image: req.file
     };
 
     // make uuid and pass to cloudinary
-    const newID = `/spots/user/${uuid()}`;
     cloudinary.uploader
-      .upload(data.image, {resource_type: "image", public_id: newID})
+      .upload(data.image.path)
       .then((result) => {
+        console.log(result)
         res.status(200).send({
           message: "success",
-          result,
-        });
+          imagePath: result.url
+        })
       })
       .catch((error) => {
         console.log(error);
@@ -61,6 +68,7 @@ router.post("/upload-pic", async (req, res) => {
           error,
         });
       });
+      
   } catch (err) {
     res.status(400).json({
       message: "Some error occured",
