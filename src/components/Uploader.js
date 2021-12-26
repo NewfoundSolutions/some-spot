@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import exifr from "exifr";
+import Compressor from "compressorjs";
 
 class Uploader extends React.Component {
   constructor(props) {
@@ -7,6 +9,8 @@ class Uploader extends React.Component {
     this.state = {
       selectedFile: {},
       name: "",
+      lat: 0,
+      long: 0,
     };
   }
 
@@ -14,19 +18,36 @@ class Uploader extends React.Component {
     this.setState({ name: event.target.value });
   };
 
-  onFileChange = (event) => {
+  onFileChange = async (event) => {
     const targetImage = Array(event.target.files[0]);
+    let exy = await exifr.gps(targetImage[0]);
+    exy === undefined
+      ? console.log("no gps info in image")
+      : this.setState({ lat: exy.latitude, long: exy.longitude });
     this.setState({ selectedFile: targetImage[0] });
   };
 
-  onFileUpload = async () => {
+  onFileUpload = () => {
     const formData = new FormData();
     formData.append("name", this.state.name);
-    formData.append("files", this.state.selectedFile);
-    axios
-      .post("http://192.168.0.14:3001/markers/upload-pic", formData)
-      .then((res) => console.log("response recieved:" + res))
-      .catch((err) => console.log(err));
+    formData.append("lat", this.state.lat);
+    formData.append("long", this.state.long);
+
+    const image = this.state.selectedFile;
+    new Compressor(image, {
+      quality: 0.6,
+      success(result) {
+        formData.append("files", result, result.name);
+        console.log("result is", result);
+        axios
+          .post("http://192.168.0.14:3001/markers/upload-pic", formData)
+          .then((res) => console.log("response recieved:" + res))
+          .catch((err) => console.log(err));
+      },
+      error(err) {
+        console.log(err.message);
+      },
+    });
   };
 
   render() {

@@ -12,6 +12,7 @@ const PinDrop = () => {
       <p>Or skip the pictures all together, and use your current location</p>
       <Button
         onClick={() => {
+          console.log(navigator.geolocation);
           return navigator.geolocation
             ? navigator.geolocation.getCurrentPosition(success)
             : { lat: 0, long: 0 };
