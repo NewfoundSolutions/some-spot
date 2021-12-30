@@ -3,8 +3,6 @@ import GoogleMapReact from "google-map-react";
 import Marker from "./Marker";
 import { mapKey } from "../config/keys.js";
 
-//{name: 'Signal Hill', lat: '47.5697', lng:'-52.6819' }
-
 class AppMap extends React.Component {
   constructor(props) {
     super(props);

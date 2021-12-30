@@ -10,44 +10,44 @@ class Uploader extends React.Component {
       selectedFile: {},
       name: "",
       lat: 0,
-      long: 0,
+      lng: 0,
+      desc: "",
     };
   }
-
-  onNameChange = (event) => {
-    this.setState({ name: event.target.value });
-  };
 
   onFileChange = async (event) => {
     const targetImage = Array(event.target.files[0]);
     let exy = await exifr.gps(targetImage[0]);
     exy === undefined
       ? console.log("no gps info in image")
-      : this.setState({ lat: exy.latitude, long: exy.longitude });
+      : this.setState({ lat: exy.latitude, lng: exy.longitude });
     this.setState({ selectedFile: targetImage[0] });
   };
 
-  onFileUpload = () => {
+  onFileUpload = async () => {
     const formData = new FormData();
     formData.append("name", this.state.name);
     formData.append("lat", this.state.lat);
-    formData.append("long", this.state.long);
+    formData.append("lng", this.state.lng);
+    formData.append("desc", this.state.desc);
 
     const image = this.state.selectedFile;
     new Compressor(image, {
       quality: 0.6,
       success(result) {
         formData.append("files", result, result.name);
-        console.log("result is", result);
         axios
           .post("http://192.168.0.14:3001/markers/upload-pic", formData)
-          .then((res) => console.log("response recieved:" + res))
+          .then((res) => {
+            console.log("res.data.formPart: ", res.data.formPart);
+          })
           .catch((err) => console.log(err));
       },
       error(err) {
         console.log(err.message);
       },
     });
+    this.props.setUploadDone(true)
   };
 
   render() {
@@ -60,9 +60,21 @@ class Uploader extends React.Component {
             <input
               name="name"
               id="name"
-              onChange={this.onNameChange}
+              onChange={(e) => {
+                this.setState({ name: e.target.value });
+              }}
               placeholder="Name the Spot"
             />
+            <label htmlFor="description">Description</label>
+            <textarea
+              name="description"
+              id="description"
+              placeholder="Describe the spot, your memories or anything else you would like to tag this pin with."
+              onChange={(e) => {
+                this.setState({ desc: e.target.value });
+                console.log("this.state is:", this.state);
+              }}
+            ></textarea>
           </div>
           <div className="input-group">
             <label htmlFor="files">Select files</label>

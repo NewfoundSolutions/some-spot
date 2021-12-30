@@ -3,7 +3,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import LoginModal from "./LoginModal";
-import UploadModal from "./UploadModal"
+import UploadModal from "./UploadModal";
+import SignupModal from "./SignupModal";
 
 class TopBar extends React.Component {
   updateParent(value) {
@@ -18,8 +19,13 @@ class TopBar extends React.Component {
           <Nav> 
             <UploadModal />
           </Nav>
-          <Nav className="ml-auto">
+          </Container>
+          <Container fluid>
+          <Nav className="ml-auto" >
             <LoginModal updateParent={this.updateParent.bind(this)} />
+          </Nav>
+          <Nav >
+            <SignupModal updateParent={this.updateParent.bind(this)} />
           </Nav>
         </Container>
       </Navbar>
