@@ -21,9 +21,7 @@ function LoginModal() {
   const handleShow = () => setShow(true);
   const handleSignin = () => { //
   };
-  const handleSignup = () => { //
-    
-  };
+  
   
   const [formState , setFormState] = useState({
     email : "",

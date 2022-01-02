@@ -4,10 +4,7 @@ const Schema = mongoose.Schema;
 
 //generic user schema from previous app
 const UserSchema = new Schema ({
-    _id: {
-        type: String,
-        required: true
-    },
+    
     name: {
         type: String,
         required: true
@@ -21,11 +18,16 @@ const UserSchema = new Schema ({
         type: String,
         required: true
     },
+    entries: {
+        type: Array,
+        required: true
+    },
     register_date: {
        type: Date,
-        default: Date.now
+       required: true
     }
-});
+},
+{collection: 'users'});
 
 module.exports = mongoose.model('user',UserSchema);
 

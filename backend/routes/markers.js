@@ -8,7 +8,6 @@ const Spot = require("../models/Spot");
 
 //const markers = require("../data/tempLocations");
 
-const markers = 
 
 router.get("/list", async (req, res) => {
   try {
@@ -24,22 +23,22 @@ router.get("/list", async (req, res) => {
   }
 });
 
-router.get("/list/:id", async (req, res) => {
-  let { id } = req.params;
-  console.log(id);
-  try {
-    const marker = markers.find((marker) => marker._id === id);
-    console.log(marker);
-    res.status(200).json({
-      data: marker,
-    });
-  } catch (err) {
-    res.status(400).json({
-      message: "Some error occured",
-      err,
-    });
-  }
-});
+// router.get("/list/:id", async (req, res) => {
+//   let { id } = req.params;
+//   console.log(id);
+//   try {
+//     const marker = markers.find((marker) => marker._id === id);
+//     console.log(marker);
+//     res.status(200).json({
+//       data: marker,
+//     });
+//   } catch (err) {
+//     res.status(400).json({
+//       message: "Some error occured",
+//       err,
+//     });
+//   }
+// });
 
 router.post("/upload-pic", upload.single("files"), (req, res) => {
   console.log(req.body);
