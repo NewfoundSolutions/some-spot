@@ -6,6 +6,9 @@ var cloudinary = require("cloudinary").v2;
 
 const Spot = require("../models/Spot");
 
+const auth = require ("../middleware/auth");
+
+
 //const markers = require("../data/tempLocations");
 
 
@@ -40,7 +43,7 @@ router.get("/list", async (req, res) => {
 //   }
 // });
 
-router.post("/upload-pic", upload.single("files"), (req, res) => {
+router.post("/upload-pic", auth, upload.single("files"), (req, res) => {
   console.log(req.body);
 
   try {

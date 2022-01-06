@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 const cors = require("cors");
 const logger = require("morgan");
 
-//const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -15,9 +14,6 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: true }));
-
 //config 
 const db = config.get('mongoURI');
 cloudinary.config({ 
@@ -25,7 +21,7 @@ cloudinary.config({
   api_key: config.get('cloudKey'), 
   api_secret: config.get('cloudSecret') 
 });
-const jwtSecret = config.get('JWT_SECRET')
+
 
 mongoose
 .connect(db)
