@@ -3,8 +3,10 @@ const router = express.Router();
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 var cloudinary = require("cloudinary").v2;
+const mongoose = require("mongoose");
 
 const Spot = require("../models/Spot");
+const User = require("../models/User");
 
 const auth = require ("../middleware/auth");
 
@@ -15,7 +17,7 @@ const auth = require ("../middleware/auth");
 router.get("/list", async (req, res) => {
   try {
     const markers = await Spot.find();
-    console.log("markers is", markers);
+    // console.log("markers is", markers);
     res.status(200).json({
       data: markers,
     });
@@ -58,13 +60,18 @@ router.post("/upload-pic", auth, upload.single("files"), (req, res) => {
       .then(async (result) => {
         console.log("result.url is: ",result.url);
         const newSpot = new Spot ({
+          _id: new mongoose.Types.ObjectId,
           name: req.body.name,
           lat: req.body.lat,
           lng: req.body.lng,
           url: result.url,
-          desc: req.body.desc
+          desc: req.body.desc,
+          owner: req.body.owner
         })
-        newSpot.save();
+        console.log("newSpot is: ",newSpot)
+        await newSpot.save();
+      
+        await User.updateOne({email: req.body.owner}, {$push: {entries: newSpot._id}})
       
 
         res.status(200).send({

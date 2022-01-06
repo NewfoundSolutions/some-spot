@@ -3,6 +3,7 @@ import AppMap from "./components/AppMap";
 import TopBar from "./components/TopBar";
 import Panel from "./components/Panel";
 import "./App.css";
+import Cookies from 'js-cookie'
 
 class App extends React.Component {
   constructor(props) {
@@ -15,7 +16,9 @@ class App extends React.Component {
 
     };
   }
-
+  componentDidMount(){
+    this.setState({token:Cookies.get()})
+  }
   updateActive(t) {
     this.setState(t);
     //todo: Sanity checking

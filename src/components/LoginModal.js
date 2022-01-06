@@ -32,7 +32,7 @@ function LoginModal(props) {
       .then((res) => {
         console.log("res.data.token is", res.data.token)
         props.updateParent({token: res.data.token})
-        props.updateParent({loggedIn: true})
+        props.updateParent({loggedIn: formState.email})
       })
       .catch((err) => console.log(err));
   };
