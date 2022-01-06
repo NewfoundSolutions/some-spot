@@ -14,7 +14,8 @@ const auth = require ("../middleware/auth");
 
 router.get("/list", async (req, res) => {
   try {
-    const markers = await Spot.find()
+    const markers = await Spot.find();
+    console.log("markers is", markers);
     res.status(200).json({
       data: markers,
     });

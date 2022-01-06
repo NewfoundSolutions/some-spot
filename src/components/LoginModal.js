@@ -31,9 +31,8 @@ function LoginModal(props) {
         headers
       )
       .then((res) => {
-        console.log("res.token is", res.data.token)
-        setToken(res.data.token);
-        console.log("success, token is: ", res);
+        console.log("res.data.token is", res.data.token)
+        setToken({token: res.data.token});
       })
       .catch((err) => console.log(err));
   };

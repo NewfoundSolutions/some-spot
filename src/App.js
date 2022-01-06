@@ -8,7 +8,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: null,
+      active: "",
       name: "",
       loginModal: false,
     };
