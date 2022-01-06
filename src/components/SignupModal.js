@@ -40,7 +40,7 @@ function SignupModal() {
     );
     // console.log("Form should be done: ", formData);
     axios
-      .post("http://192.168.0.14:3001/users/new", formData)
+      .post("/users/new", formData)
       .then((res) => {
         console.log("success: ", res.body);
       })

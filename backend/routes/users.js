@@ -22,7 +22,7 @@ router.post('/login', async (req, res) => {
         console.log("token is: ",accessToken)
         // console.log("res is: ", res)
         res.cookie('token', accessToken, { httpOnly: true })
-        .json({ message: "Successful login!" });
+        .json({ token: accessToken });
       } else {
           res.json({ message: "Failed login attempt" });
       }

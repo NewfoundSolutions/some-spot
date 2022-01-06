@@ -13,11 +13,12 @@ const headers = {
   "Content-Type": "text/plain",
 };
 
-function LoginModal() {
+function LoginModal(props) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const setToken = (data) => props.updateParent(data);
 
   const handleSignin = async (e) => {
     e.preventDefault();
@@ -30,6 +31,8 @@ function LoginModal() {
         headers
       )
       .then((res) => {
+        console.log("res.token is", res.data.token)
+        setToken(res.data.token);
         console.log("success, token is: ", res);
       })
       .catch((err) => console.log(err));

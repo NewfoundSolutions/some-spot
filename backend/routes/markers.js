@@ -85,32 +85,5 @@ router.post("/upload-pic", auth, upload.single("files"), (req, res) => {
     });
   }
 });
-// router.post("/new", async (req, res) => {
-//   try {
-//     console.log(req.body);
-//     // const newSpot = new Spot({
-//     //   _id: uuid(),
-//     //   name: req.body.name ? req.body.name : "nope",
-//     //   coords: req.body.coords ? req.body.coords : "no coords",
-//     //   content: req.body.content ? req.body.content : "no content"
-//     // });
-//     // newSpot.save().then((spot) => res.json(spot));
-//   } catch (err) {
-//     res.status(400).json({
-//       message: "Some error occured",
-//       err,
-//     });
-//   }
-// });
-
-// router.get("/test", async (req, res) => {
-//   const newSpot = new Spot({
-//     _id: 564567,
-//     name: "TestSpot",
-//     coords: { lat: 23.44, lng: 44.55 },
-//     content: { imgURL: "idunno.com", desc: "hoping" },
-//   });
-//   newSpot.save().then((spot) => res.json(spot));
-// });
 
 module.exports = router;
