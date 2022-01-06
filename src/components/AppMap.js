@@ -37,7 +37,7 @@ class AppMap extends React.Component {
           {this.state.markers.map((entry, i) => (
             <Marker
               key={i}
-              dbId={entry._id}
+              dbid={entry._id}
               name={entry.name}
               lat={entry.lat}
               lng={entry.lng}

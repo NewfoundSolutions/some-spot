@@ -10,7 +10,7 @@ class Marker extends React.Component {
   handleClick(e) {
     console.log("target is",e.currentTarget)
     this.props.updateParent({
-      active: e.currentTarget.getAttribute("dbId"),
+      active: e.currentTarget.getAttribute("dbid"),
       name: e.currentTarget.getAttribute("name"),
     });
     console.log(e.currentTarget.getAttribute("name"));
@@ -23,7 +23,7 @@ class Marker extends React.Component {
         style={markerStyles}
         name={this.props.name}
         key={this.props.key}
-        dbId={this.props.dbId}
+        dbid={this.props.dbid}
         lat={this.props.lat}
         lng={this.props.lng}
         active={this.props.active}

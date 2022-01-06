@@ -37,9 +37,9 @@ class Uploader extends React.Component {
       success(result) {
         formData.append("files", result, result.name);
         axios
-          .post("http://192.168.0.14:3001/markers/upload-pic", formData)
+          .post("/markers/upload-pic", formData)
           .then((res) => {
-            console.log("res.data.formPart: ", res.data.formPart);
+            // redirect to memory page
           })
           .catch((err) => console.log(err));
       },

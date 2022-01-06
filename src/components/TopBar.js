@@ -11,22 +11,17 @@ class TopBar extends React.Component {
     this.props.updateActive(value);
   }
 
+
+
   render() {
     return (
       <Navbar bg="dark" variant="dark" fixed="top">
         <Container fluid>
           <Navbar.Brand href="#home">Some Spot B'y</Navbar.Brand>
-          <Nav> 
-            <UploadModal />
-          </Nav>
-          </Container>
-          <Container fluid>
-          <Nav className="ml-auto" >
-            <LoginModal updateParent={this.updateParent.bind(this)} />
-          </Nav>
-          <Nav >
-            <SignupModal updateParent={this.updateParent.bind(this)} />
-          </Nav>
+           
+          {this.props.loggedIn ? <Nav><UploadModal /> </Nav>: "Create an account or login to start!"}
+          {!this.props.loggedIn ? <Nav className="ml-auto" > <LoginModal  updateParent={this.updateParent.bind(this)} /></Nav> : <></>}
+          {!this.props.loggedIn ? <Nav ><SignupModal updateParent={this.updateParent.bind(this)} /></Nav>:<></>}
         </Container>
       </Navbar>
     );

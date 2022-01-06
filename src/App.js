@@ -10,7 +10,9 @@ class App extends React.Component {
     this.state = {
       active: "",
       name: "",
-      loginModal: false,
+      token: "",
+      loggedIn: ""
+
     };
   }
 
@@ -22,7 +24,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <TopBar
-          loginModal={this.state.loginModal}
+          loggedIn={this.state.loggedIn}
           updateActive={this.updateActive.bind(this)}
         />
         <AppMap

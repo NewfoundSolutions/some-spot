@@ -18,7 +18,6 @@ function LoginModal(props) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const setToken = (data) => props.updateParent(data);
 
   const handleSignin = async (e) => {
     e.preventDefault();
@@ -32,7 +31,8 @@ function LoginModal(props) {
       )
       .then((res) => {
         console.log("res.data.token is", res.data.token)
-        setToken({token: res.data.token});
+        props.updateParent({token: res.data.token})
+        props.updateParent({loggedIn: true})
       })
       .catch((err) => console.log(err));
   };
@@ -48,7 +48,7 @@ function LoginModal(props) {
       ...prevState,
       [id]: value,
     }));
-    console.log(formState);
+    
   };
 
   return (

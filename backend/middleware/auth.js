@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 
 const auth = function(req, res, next) {
-  const accessToken = req.cookies.accessToken;  if (!accessToken) {
+  const accessToken = req.cookies.token;  if (!accessToken) {
     res.status(401).send('Unauthorized: No token');
   } else {
     jwt.verify(accessToken, config.get('JWT_SECRET'), function(err, decoded) {
