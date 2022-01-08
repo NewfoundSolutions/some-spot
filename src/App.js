@@ -1,7 +1,7 @@
 import React from "react";
 import AppMap from "./components/AppMap";
 import TopBar from "./components/TopBar";
-import Panel from "./components/Panel";
+// import Panel from "./components/Panel";
 import "./App.css";
 import Cookies from 'js-cookie'
 
@@ -34,7 +34,7 @@ class App extends React.Component {
           active={this.state.active}
           updateActive={this.updateActive.bind(this)}
         />
-        <Panel active={this.state.active} placeName={this.state.name} />
+        {/* <Panel active={this.state.active} placeName={this.state.name} /> */}
         <footer>A WIP by Tim Peddle</footer>
       </div>
     );

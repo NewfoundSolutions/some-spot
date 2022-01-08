@@ -60,7 +60,7 @@ router.post("/upload-pic", auth, upload.single("files"), (req, res) => {
       .then(async (result) => {
         console.log("result.url is: ",result.url);
         const newSpot = new Spot ({
-          _id: new mongoose.Types.ObjectId,
+          _id: new mongoose.Types.ObjectId(),
           name: req.body.name,
           lat: req.body.lat,
           lng: req.body.lng,

@@ -8,7 +8,7 @@ const markerStyles = {
 
 class Marker extends React.Component {
   handleClick(e) {
-    console.log("target is",e.currentTarget)
+    //console.log("target is",e.currentTarget)
     this.props.updateParent({
       active: e.currentTarget.getAttribute("dbid"),
       name: e.currentTarget.getAttribute("name"),
