@@ -3,8 +3,7 @@ import AppMap from "./components/AppMap";
 import TopBar from "./components/TopBar";
 // import Panel from "./components/Panel";
 import "./App.css";
-import Cookies from 'js-cookie'
-
+import MarkerPopover from "./components/MarkerPopover";
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -15,9 +14,6 @@ class App extends React.Component {
       loggedIn: ""
 
     };
-  }
-  componentDidMount(){
-    this.setState({token:Cookies.get()})
   }
   updateActive(t) {
     this.setState(t);
@@ -35,7 +31,7 @@ class App extends React.Component {
           updateActive={this.updateActive.bind(this)}
         />
         {/* <Panel active={this.state.active} placeName={this.state.name} /> */}
-        <footer>A WIP by Tim Peddle</footer>
+        <footer><MarkerPopover /></footer>
       </div>
     );
   }

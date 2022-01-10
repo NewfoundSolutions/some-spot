@@ -3,6 +3,7 @@ import { Button, Modal, Form } from "react-bootstrap";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import axios from "axios";
+
 //just a skeleton from
 
 const iconStyle = {
@@ -99,6 +100,7 @@ function LoginModal(props) {
           </Form>
         </Modal.Dialog>
       </Modal>
+          
     </>
   );
 }
