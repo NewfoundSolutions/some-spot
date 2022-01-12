@@ -3,22 +3,30 @@ import { Popover, OverlayTrigger, Button } from 'react-bootstrap';
 import Marker from "./Marker.js"
 
 
-const Overlay = () => {
-  const popover = (
-    <Popover id="1">
-      <div>ffs</div>
-    </Popover>
-  );
-  return popover;
-};
+
 
 class MarkerPopover extends React.Component {
   render() {
-    return (
-      <OverlayTrigger trigger="click" placement="top" overlay={Overlay}>
-        <Marker />
+    const popover = () => (
+      <Popover id="popover-basic">
+        <Popover.Title as="h3">Popover right</Popover.Title>
+        <Popover.Content>
+          And here's some <strong>amazing</strong> content. It's very engaging.
+          right?
+        </Popover.Content>
+      </Popover>
+    );
+
+    const Example = () => (
+      <OverlayTrigger trigger="click" placement="top" overlay={{popover}}>
+        <Button variant="success">Click me to see</Button>
       </OverlayTrigger>
     );
+
+    return (
+      <Example />
+    )
   }
 }
+
 export default MarkerPopover;

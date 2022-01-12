@@ -15,6 +15,8 @@ class AppMap extends React.Component {
     this.props.updateActive(value);
   }
 
+  
+
   componentDidMount() {
     fetch("http://192.168.0.14:3001/markers/list")
       .then((response) => response.json())
@@ -29,6 +31,7 @@ class AppMap extends React.Component {
     return (
       <div className="map">
         <GoogleMapReact
+          yesIWantToUseGoogleMapApiInternals
           bootstrapURLKeys={mapKey}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}

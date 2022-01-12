@@ -31,7 +31,7 @@ class App extends React.Component {
           updateActive={this.updateActive.bind(this)}
         />
         {/* <Panel active={this.state.active} placeName={this.state.name} /> */}
-        <footer><MarkerPopover /></footer>
+        <footer></footer>
       </div>
     );
   }
