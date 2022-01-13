@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal, Form } from "react-bootstrap";
+import { Button, Modal, Form, Spinner } from "react-bootstrap";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import axios from "axios";
@@ -9,7 +9,7 @@ const iconStyle = {
   fontSize: "1.5rem",
 };
 
-function SignupModal() {
+function SignupModal(props) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -19,6 +19,7 @@ function SignupModal() {
     email: "",
     name: "",
     password: "",
+    submited: false,
   });
   const handleChange = (e) => {
     e.preventDefault();
@@ -31,7 +32,8 @@ function SignupModal() {
   };
 
   const onSubmit = async (e) => {
-     e.preventDefault();
+    setFormState({ submited: true });
+    e.preventDefault();
     const formData = Object.assign(
       {},
       formState,
@@ -42,7 +44,9 @@ function SignupModal() {
     axios
       .post("/users/new", formData)
       .then((res) => {
-        console.log("success: ", res.body);
+        if(res.status === 200) {handleClose()}    
+        props.updateParent({token: res.data.token})
+        props.updateParent({loggedIn: formState.email})
       })
       .catch((err) => console.log(err));
   };
@@ -98,9 +102,22 @@ function SignupModal() {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button variant="primary" onClick={onSubmit} type="submit">
-                Sign Up
-              </Button>
+              {formState.submited ? (
+                <Button variant="primary" disabled>
+                  <Spinner
+                    as="span"
+                    animation="grow"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  Loading...
+                </Button>
+              ) : (
+                <Button variant="primary" onClick={onSubmit} type="submit">
+                  Sign Up
+                </Button>
+              )}
             </Modal.Footer>
           </Form>
         </Modal.Dialog>

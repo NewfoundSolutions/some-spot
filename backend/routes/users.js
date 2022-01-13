@@ -38,18 +38,24 @@ router.post("/new", async (req, res) => {
   try {
     const { name, email, password, register_date } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({
-      name: name,
-      email: email,
-      password: hashedPassword,
-      entries: [],
-      register_date: register_date,
-    });
-    console.log("newUser is: ", newUser);
-    newUser.save();
-    res.status(200).send({
-      message: "Registration successful"
-    });
+    const dbUser = await User.findOne({ email: req.body.email });
+    if (dbUser == null){
+      const newUser = new User({
+        name: name,
+        email: email,
+        password: hashedPassword,
+        entries: [],
+        register_date: register_date,
+      });
+      // console.log("newUser is: ", newUser);
+      await newUser.save();
+      const accessToken = jwt.sign({email}, jwtSecret, {expiresIn: '1h'});
+      if(accessToken){
+        res.cookie('token', accessToken, { httpOnly: true })
+      res.status(200).send({
+        message: "Registration successful"
+      });
+    }}
   } catch (error) {
     if (error.code === 11000) {
       return res.send({ status: "error", error: "email already exists" });
