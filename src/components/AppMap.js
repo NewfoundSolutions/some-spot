@@ -2,20 +2,47 @@ import React from "react";
 import GoogleMapReact from "google-map-react";
 import Marker from "./Marker";
 import { mapKey } from "../config/keys.js";
+import Sidebar from "./Sidebar.js";
+
+const mapStyle = {
+  width: '100%',
+  height: '100%',
+  left: '0',
+  top: '0',
+  margin: '0',
+  padding: '0',
+  position: 'absolute'
+}
 
 class AppMap extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       markers: [],
+      barOpen: false,
+      name: "",
+      desc: "",
+      url: ""
     };
   }
 
-  updateParent(value) {
-    this.props.updateActive(value);
+  updateParent(v) {
+    this.props.updateActive(v);
   }
+  activeMarker = (v) => {this.setState(v)}
+  toggleSidebar = (v) => {
+    if (this.state.barOpen !== v) {
+      this.setState({
+        barOpen: v,
+      });
+    }
+  };
 
-  
+  // toggleSidebar(prevState) {
+  //   this.setState((prevState) => ({
+  //     barOpen: !prevState.barOpen,
+  //   }));
+  // }
 
   componentDidMount() {
     fetch("http://192.168.0.14:3001/markers/list")
@@ -27,14 +54,16 @@ class AppMap extends React.Component {
         });
       });
   }
+  
   render() {
     return (
-      <div className="map">
+      <div className="map" style={mapStyle}>
         <GoogleMapReact
           yesIWantToUseGoogleMapApiInternals
           bootstrapURLKeys={mapKey}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
+          
         >
           {/* Populate above map with markers */}
           {this.state.markers.map((entry, i) => (
@@ -44,11 +73,26 @@ class AppMap extends React.Component {
               name={entry.name}
               lat={entry.lat}
               lng={entry.lng}
-              active={(this.props.active === this.props.id).toString()}
+              desc={entry.desc}
+              url={entry.url}
               updateParent={this.updateParent.bind(this)}
+              activeMarker={this.activeMarker}
+              toggleSidebar={this.toggleSidebar}
+              barOpen={this.state.barOpen}
             />
           ))}
         </GoogleMapReact>
+        <Sidebar
+          show={this.state.barOpen}
+          name={this.state.name}
+          desc={this.state.desc}
+          url={this.state.url}
+          handleClose={() => {
+            this.setState((prevState) => ({
+              barOpen: !prevState.barOpen,
+            }));
+          }}
+        />
       </div>
     );
   }

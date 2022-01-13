@@ -1,54 +1,49 @@
 import React from "react";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { Icon } from "@iconify/react";
-import { Popover } from "react-bootstrap";
 
 const markerStyles = {
   position: "absolute",
   transform: "translate(-50%, -50%)",
 };
 
-class Marker extends React.Component {
-  constructor(props) {
-    super(props);
-    this.ref = React.createRef();
-  }
-  Overlay = () => {
-    const popover = (
-      <Popover id="popover-positioned-bottom">
-        <div>{this.props.name}</div>
-      </Popover>
-    );
-    return popover;
+const Marker = (props) => {
+  const toggle = (v) => {
+    props.toggleSidebar(v);
   };
-  handleClick = (e) => {
+
+  const handleClick = (e) => {
     console.log("target is", e.currentTarget);
-    this.props.updateParent({
+    toggle(!props.barOpen);
+    const splitURL = e.currentTarget.getAttribute("url").split('/')
+    splitURL.splice(6,0,'c_crop,h_200,w_200,c_fill')
+  const url = splitURL.join('/')
+  console.log("url is",url)
+    props.activeMarker({
       active: e.currentTarget.getAttribute("dbid"),
+      desc: e.currentTarget.getAttribute("desc"),
+      url: url,
       name: e.currentTarget.getAttribute("name"),
     });
     // console.log(e.currentTarget.getAttribute("name"));
   };
-  render() {
-    return (
-      <OverlayTrigger trigger="click" placement="bottom" overlay={this.Overlay}>
-        <div
-          ref={this.ref}
-          className="location-marker"
-          style={markerStyles}
-          name={this.props.name}
-          key={this.props._id}
-          dbid={this.props.dbid}
-          lat={this.props.lat}
-          lng={this.props.lng}
-          active={this.props.active}
-          onClick={this.handleClick}
-        >
-          <Icon icon="bx:bxs-map-pin" className="location-icon" />
-        </div>
-      </OverlayTrigger>
-    );
-  }
-}
+
+  return (
+    <div
+      className="location-marker"
+      style={markerStyles}
+      name={props.name} 
+      key={props._id}
+      dbid={props.dbid}
+      lat={props.lat}
+      lng={props.lng}
+      desc={props.desc}
+      url={props.url}
+      active={props.active}
+      onClick={handleClick}
+    >
+      <Icon icon="bx:bxs-map-pin" className="location-icon" />
+    </div>
+  );
+};
 
 export default Marker;

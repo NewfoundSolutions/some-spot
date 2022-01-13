@@ -3,7 +3,6 @@ import AppMap from "./components/AppMap";
 import TopBar from "./components/TopBar";
 // import Panel from "./components/Panel";
 import "./App.css";
-import MarkerPopover from "./components/MarkerPopover";
 class App extends React.Component {
   constructor(props) {
     super(props);
