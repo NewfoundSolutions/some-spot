@@ -1,8 +1,8 @@
 import React from "react";
 import AppMap from "./components/AppMap";
 import TopBar from "./components/TopBar";
-
 import "./App.css";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -13,6 +13,9 @@ class App extends React.Component {
       loggedIn: ""
 
     };
+  }
+  componentDidMount () {
+    
   }
   updateActive(t) {
     this.setState(t);

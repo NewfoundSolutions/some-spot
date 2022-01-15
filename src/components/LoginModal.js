@@ -16,14 +16,15 @@ const headers = {
 
 function LoginModal(props) {
   const [show, setShow] = useState(false);
-
+  const [formState, setFormState] = useState({
+    email: "",
+    password: "",
+  });
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  
   const handleSignin = async (e) => {
     e.preventDefault();
-    const payload = { email: formState.email, password: formState.password };
-    console.log("form payload is: ", payload);
     axios
       .post(
         "/users/login",
@@ -38,10 +39,6 @@ function LoginModal(props) {
       .catch((err) => console.log(err));
   };
 
-  const [formState, setFormState] = useState({
-    email: "",
-    password: "",
-  });
   const handleChange = (e) => {
     e.preventDefault();
     const { id, value } = e.target;
@@ -54,9 +51,9 @@ function LoginModal(props) {
 
   return (
     <>
-      <div onClick={handleShow} className="mr-2" style={iconStyle}>
+      <div onClick={handleShow} className="mr-2" style={{fontSize: "1rem", color: "white"}}>
         Sign-In
-        <Icon style={iconStyle} icon="line-md:account-add" />
+        <Icon style={iconStyle} icon="mdi:account-circle" />
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Dialog>

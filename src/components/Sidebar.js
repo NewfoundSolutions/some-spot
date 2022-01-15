@@ -3,11 +3,8 @@ import { Offcanvas, Form } from "react-bootstrap";
 import Image from 'react-bootstrap/Image'
 
 function Sidebar(props) {
-  // const [show, setShow] = useState(false);
+  const handleUpdate = () => {}
 
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
-  
   return (
     <>
     
@@ -26,7 +23,9 @@ function Sidebar(props) {
               <Form.Label>Description</Form.Label>
               <Form.Control as="textarea" rows="3" placeholder={props.desc}/>
             </Form.Group>
-            <span>TODO: Editable Fields</span>
+            <button type="button" onClick={handleUpdate}>
+            Update
+          </button>
           </Form>
         </Offcanvas.Body>
       </Offcanvas>

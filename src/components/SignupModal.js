@@ -19,6 +19,7 @@ function SignupModal(props) {
     email: "",
     name: "",
     password: "",
+    passwordRepeat: "",
     submited: false,
   });
   const handleChange = (e) => {
@@ -32,28 +33,32 @@ function SignupModal(props) {
   };
 
   const onSubmit = async (e) => {
-    setFormState({ submited: true });
     e.preventDefault();
-    const formData = Object.assign(
-      {},
-      formState,
-      { entries: [] },
-      { register_date: Date.now() }
-    );
-    // console.log("Form should be done: ", formData);
-    axios
-      .post("/users/new", formData)
-      .then((res) => {
-        if(res.status === 200) {handleClose()}    
-        props.updateParent({token: res.data.token})
-        props.updateParent({loggedIn: formState.email})
-      })
-      .catch((err) => console.log(err));
-  };
-
-  return (
-    <>
-      <div onClick={handleShow} className="mr-2" style={iconStyle}>
+    if (formState.password === formState.passwordRepeat && formState.password.length >= 6) {
+      const formData = Object.assign(
+        {},
+        formState,
+        { entries: [] },
+        { register_date: Date.now() }
+        );
+        // console.log("Form should be done: ", formData);
+        setFormState({ submited: true });
+        axios
+        .post("/users/new", formData)
+        .then((res) => {
+          if (res.status === 200) {
+            handleClose();
+          }
+          props.updateParent({ token: res.data.token });
+          props.updateParent({ loggedIn: formState.email });
+        })
+        .catch((err) => console.log(err));
+      };
+    }
+      
+      return (
+        <>
+      <div onClick={handleShow} className="mr-2" style={{fontSize: "1rem", color: "white"}}>
         New Account
         <Icon style={iconStyle} icon="line-md:account-add" />
       </div>
@@ -97,6 +102,17 @@ function SignupModal(props) {
                 <Form.Text className="text-muted">
                   And stop reusing the same password everywhere, There's skeets
                   on the go.
+                </Form.Text>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="passwordRepeat">
+                <Form.Label>Re-Enter Your Password</Form.Label>
+                <Form.Control
+                  onChange={handleChange}
+                  type="password"
+                  placeholder="One more time"
+                />
+                <Form.Text className="text-muted">
+                  {formState.password === formState.passwordRepeat && formState.passwordRepeat !== '' ? "Great!": "Passwords must match, and be at least six characters long"}
                 </Form.Text>
               </Form.Group>
             </Modal.Body>
