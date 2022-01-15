@@ -15,6 +15,7 @@ const headers = {
 };
 
 function LoginModal(props) {
+  const [authFail, setAuthFail] = useState('')
   const [show, setShow] = useState(false);
   const [formState, setFormState] = useState({
     email: "",
@@ -32,9 +33,11 @@ function LoginModal(props) {
         headers
       )
       .then((res) => {
-        console.log("res.data.token is", res.data.token)
-        props.updateParent({token: res.data.token})
-        props.updateParent({loggedIn: formState.email})
+        console.log("res.data.message is: ", res.data.message)
+        if (res.data.message) setAuthFail(res.data.message);
+        props.updateParent({token: res.data.token, loggedIn: formState.email})
+        //props.updateParent({})
+        //handleClose();
       })
       .catch((err) => console.log(err));
   };
@@ -70,7 +73,7 @@ function LoginModal(props) {
                   placeholder="Enter email"
                 />
                 <Form.Text className="text-muted">
-                  We'll never share your email with anyone else.
+                {authFail}
                 </Form.Text>
               </Form.Group>
 

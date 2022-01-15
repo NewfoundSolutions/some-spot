@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 import axios from "axios";
 import exifr from "exifr";
 import Compressor from "compressorjs";
@@ -50,7 +51,10 @@ class Uploader extends React.Component {
     });
     this.props.setUploadDone(true)
   };
-
+   geoLocSuccess = (pos) => {
+    this.setState({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+    console.log(this.state)
+  };
   render() {
     return (
       <div>
@@ -81,6 +85,16 @@ class Uploader extends React.Component {
             <label htmlFor="files">Select files</label>
           </div>
           <input id="files" type="file" onChange={this.onFileChange} />
+          
+      <Button
+        onClick={() => {
+          return navigator.geolocation
+            ? navigator.geolocation.getCurrentPosition(this.geoLocSuccess)
+            : { lat: 0, long: 0 };
+        }}
+      >
+        Use Device GPS
+      </Button>
           <button type="button" onClick={this.onFileUpload}>
             Upload!
           </button>

@@ -3,13 +3,6 @@ import { Modal } from "react-bootstrap";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import Uploader from "./Uploader";
-//import PinDrop from "./PinDrop"; TODO: incorporate into Uploader component
-
-
-const iconStyle = {
-  color: "#006400",
-  fontSize: "1.4rem",
-};
 
 function UploadModal(props) {
   const [show, setShow] = useState(false);
@@ -22,7 +15,7 @@ function UploadModal(props) {
 
   return (
     <>
-      <div onClick={handleShow} className="mr-2" style={iconStyle}>
+      <div onClick={handleShow} className="mr-2" style={{fontSize: "1rem", color: "white"}}>
         New Memory
         <Icon icon="bx:bxs-map-pin" className="location-icon" />
       </div>
@@ -36,7 +29,7 @@ function UploadModal(props) {
               <Uploader loggedIn= {props.loggedIn}setUploadDone={setUploadDone} />
             )}
           </Modal.Body>
-          {/*<PinDrop />   TODO: Option to skip pictures*/}
+          
         </Modal.Dialog>
       </Modal>
     </>
