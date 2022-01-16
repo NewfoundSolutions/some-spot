@@ -2,7 +2,7 @@ import React from "react";
 import GoogleMapReact from "google-map-react";
 import Marker from "./Marker";
 import { mapKey } from "../config/keys.js";
-import Sidebar from "./Sidebar.js";
+import EditSidebar from "./EditSidebar.js";
 
 const mapStyle = {
   width: '100%',
@@ -22,7 +22,8 @@ class AppMap extends React.Component {
       barOpen: false,
       name: "",
       desc: "",
-      url: ""
+      url: "",
+      owner: ""
     };
   }
 
@@ -38,15 +39,11 @@ class AppMap extends React.Component {
     }
   };
 
-  // toggleSidebar(prevState) {
-  //   this.setState((prevState) => ({
-  //     barOpen: !prevState.barOpen,
-  //   }));
-  // }
 
   componentDidMount() {
+
     fetch("/markers/list")
-      .then((response) => response.json())
+      .then((res) => res.json())
       .then((responseJson) => {
         // console.log("responseJson is",responseJson.data[0]._id)
         this.setState(() => {
@@ -75,6 +72,7 @@ class AppMap extends React.Component {
               lng={entry.lng}
               desc={entry.desc}
               url={entry.url}
+              owner={entry.owner}
               updateParent={this.updateParent.bind(this)}
               activeMarker={this.activeMarker}
               toggleSidebar={this.toggleSidebar}
@@ -82,7 +80,9 @@ class AppMap extends React.Component {
             />
           ))}
         </GoogleMapReact>
-        <Sidebar
+        <EditSidebar
+          user={this.props.user}
+          owner={this.state.owner}
           show={this.state.barOpen}
           name={this.state.name}
           desc={this.state.desc}

@@ -17,21 +17,23 @@ const Marker = (props) => {
     const splitURL = e.currentTarget.getAttribute("url").split('/')
     splitURL.splice(6,0,'c_crop,h_200,w_200,c_fill')
   const url = splitURL.join('/')
-  console.log("url is",url)
+  // console.log("url is",url)
+  console.log("owner is",e.currentTarget.getAttribute("owner"));
     props.activeMarker({
       active: e.currentTarget.getAttribute("dbid"),
       desc: e.currentTarget.getAttribute("desc"),
       url: url,
       name: e.currentTarget.getAttribute("name"),
+      owner:e.currentTarget.getAttribute("owner")
     });
-    // console.log(e.currentTarget.getAttribute("name"));
   };
 
   return (
     <div
       className="location-marker"
       style={markerStyles}
-      name={props.name} 
+      name={props.name}
+      owner={props.owner}
       key={props._id}
       dbid={props.dbid}
       lat={props.lat}

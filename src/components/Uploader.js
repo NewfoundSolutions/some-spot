@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form, InputGroup, FormControl } from "react-bootstrap";
 import axios from "axios";
 import exifr from "exifr";
 import Compressor from "compressorjs";
@@ -31,7 +31,7 @@ class Uploader extends React.Component {
     formData.append("lat", this.state.lat);
     formData.append("lng", this.state.lng);
     formData.append("desc", this.state.desc);
-    formData.append("owner", this.props.loggedIn)
+    formData.append("owner", this.props.loggedIn);
 
     const image = this.state.selectedFile;
     new Compressor(image, {
@@ -49,20 +49,21 @@ class Uploader extends React.Component {
         console.log(err.message);
       },
     });
-    this.props.setUploadDone(true)
+    this.props.setUploadDone(true);
   };
-   geoLocSuccess = (pos) => {
+  geoLocSuccess = (pos) => {
     this.setState({ lat: pos.coords.latitude, lng: pos.coords.longitude });
-    console.log(this.state)
+    console.log(this.state);
   };
   render() {
     return (
-      <div>
-        <h1>Map your Memories!</h1>
-        <form id="form">
-          <div className="input-group">
-            <label htmlFor="name">Name </label>
-            <input
+      <>
+      <h3>Create a New Spot!</h3>
+        <Form id="form">
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              type="text"
               name="name"
               id="name"
               onChange={(e) => {
@@ -70,37 +71,46 @@ class Uploader extends React.Component {
               }}
               placeholder="Name the Spot"
             />
-            <label htmlFor="description">Description</label>
-            <textarea
-              name="description"
-              id="description"
+            <Form.Text className="text-muted">
+              You can save the story for below, if there's one to tell.
+            </Form.Text>
+          </Form.Group>
+
+          <InputGroup> 
+          <InputGroup.Text>Description</InputGroup.Text>
+            <FormControl
+              as="textarea"
+              aria-label="Description"
               placeholder="Describe the spot, your memories or anything else you would like to tag this pin with."
               onChange={(e) => {
                 this.setState({ desc: e.target.value });
                 console.log("this.state is:", this.state);
               }}
-            ></textarea>
-          </div>
-          <div className="input-group">
-            <label htmlFor="files">Select files</label>
-          </div>
-          <input id="files" type="file" onChange={this.onFileChange} />
-          
-      <Button
-        onClick={() => {
-          return navigator.geolocation
-            ? navigator.geolocation.getCurrentPosition(this.geoLocSuccess)
-            : { lat: 0, long: 0 };
-        }}
-      >
-        Use Device GPS
-      </Button>
-          <button type="button" onClick={this.onFileUpload}>
+            />
+          </InputGroup>
+
+          <Form.Group controlId="formFileSm" className="mb-3">
+    <Form.Label>Small file input example</Form.Label>
+    <Form.Control id="files" type="file" onChange={this.onFileChange}  size="sm" />
+  </Form.Group>
+
+          <Button
+            onClick={() => {
+              return navigator.geolocation
+                ? navigator.geolocation.getCurrentPosition(this.geoLocSuccess)
+                : { lat: 0, long: 0 };
+            }}
+          >
+            Use Device GPS
+          </Button>
+
+          <Button variant="primary" onClick={this.onFileUpload} type="submit">
             Upload!
-          </button>
-        </form>
-        <br />
-      </div>
+          </Button>
+        </Form>
+
+        
+      </>
     );
   }
 }

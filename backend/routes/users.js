@@ -24,12 +24,13 @@ router.post("/login", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.json({ message: `${err}` });
+    res.json({ message: err });
   }
 });
 
 router.get("/checkToken", auth, function (req, res) {
-  res.sendStatus(200);
+  console.log("req.email is: ", req.email)
+  res.status(200).json({email: req.email}) 
   console.log("checkToken passed");
 });
 

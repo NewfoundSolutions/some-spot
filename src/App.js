@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import AppMap from "./components/AppMap";
 import TopBar from "./components/TopBar";
 import "./App.css";
@@ -10,12 +11,12 @@ class App extends React.Component {
       active: "",
       name: "",
       token: "",
-      loggedIn: ""
-
+      loggedIn: "",
+      email: ""
     };
   }
   componentDidMount () {
-    
+    axios.get("/users/checkToken").then((res) => {res.data.email ? this.setState({loggedIn:true, email:res.data.email}) : this.setState({loggedIn: false})} )
   }
   updateActive(t) {
     this.setState(t);
@@ -29,6 +30,7 @@ class App extends React.Component {
           updateActive={this.updateActive.bind(this)}
         />
         <AppMap
+          user={this.state.email}
           active={this.state.active}
           updateActive={this.updateActive.bind(this)}
         />

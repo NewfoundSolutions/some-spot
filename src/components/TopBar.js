@@ -3,10 +3,11 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import Dropdown from "react-bootstrap/Dropdown";
-import { DropdownButton } from "react-bootstrap";
+import { DropdownButton} from "react-bootstrap";
 import LoginModal from "./LoginModal";
 import UploadModal from "./UploadModal";
 import SignupModal from "./SignupModal";
+import Account from "./Account";
 
 class TopBar extends React.Component {
   updateParent(value) {
@@ -14,24 +15,30 @@ class TopBar extends React.Component {
   }
 
   PreAuth = () => {
-  return (
-<DropdownButton menuVariant="dark" variant="dark" id="dropdown-basic-button" style={{overflowY:"visible",overflowX:"visible"}} size="sm" title="Account">
-            <Dropdown.Item style={{overflowY:"visible",overflowX:"visible"}}>
-              <Nav>
-                {" "}
-                <LoginModal updateParent={this.updateParent.bind(this)} />
-              </Nav>
-            </Dropdown.Item>
-            <Dropdown.Item style={{overflowY:"visible",overflowX:"visible"}}>
-              <Nav>
-                <SignupModal updateParent={this.updateParent.bind(this)} />
-              </Nav>
-            </Dropdown.Item >
-          </DropdownButton>
-  )   
-}
-
-
+    return (
+      <DropdownButton
+        menuVariant="dark"
+        variant="dark"
+        id="dropdown-basic-button"
+        // style={{ overflowY: "visible", overflowX: "visible" }}
+        size="md"
+        title="Account"
+      >
+        <Dropdown.Item >
+          <Nav>
+            {" "}
+            <LoginModal updateParent={this.updateParent.bind(this)} />
+          </Nav>
+        </Dropdown.Item>
+        <Dropdown.Item >
+          <Nav>
+            <SignupModal updateParent={this.updateParent.bind(this)} />
+          </Nav>
+        </Dropdown.Item>
+      </DropdownButton>
+    );
+  };
+  
   render() {
     return (
       <Navbar bg="dark" variant="dark" fixed="top">
@@ -43,14 +50,9 @@ class TopBar extends React.Component {
               <UploadModal loggedIn={this.props.loggedIn} />{" "}
             </Nav>
           ) : (
-            <div id="notSignedIn">
-              Create an account or login to start!
-            </div>
+            <div id="notSignedIn">Create an account or login to start!</div>
           )}
-          {this.props.loggedIn ? 'TODO: Account Management' : <this.PreAuth />}
-          
-
-          
+          {this.props.loggedIn ? '<Account />' : <this.PreAuth />}
         </Container>
       </Navbar>
     );
