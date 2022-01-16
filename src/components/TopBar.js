@@ -15,18 +15,18 @@ class TopBar extends React.Component {
 
   PreAuth = () => {
   return (
-<DropdownButton menuVariant="dark" variant="dark" id="dropdown-basic-button" size="sm" title="Account Management">
-            <Dropdown.Item>
+<DropdownButton menuVariant="dark" variant="dark" id="dropdown-basic-button" style={{overflowY:"visible",overflowX:"visible"}} size="sm" title="Account">
+            <Dropdown.Item style={{overflowY:"visible",overflowX:"visible"}}>
               <Nav>
                 {" "}
                 <LoginModal updateParent={this.updateParent.bind(this)} />
               </Nav>
             </Dropdown.Item>
-            <Dropdown.Item>
+            <Dropdown.Item style={{overflowY:"visible",overflowX:"visible"}}>
               <Nav>
                 <SignupModal updateParent={this.updateParent.bind(this)} />
               </Nav>
-            </Dropdown.Item>
+            </Dropdown.Item >
           </DropdownButton>
   )   
 }

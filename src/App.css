@@ -1,3 +1,10 @@
 #notSignedIn {
     color:white
 }
+#dropdown-button-basic {
+    overflow: visible;
+}
+.accountDropdown {
+    overflow-y:visible;
+overflow-x:visible;
+}

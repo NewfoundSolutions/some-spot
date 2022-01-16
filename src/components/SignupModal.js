@@ -59,7 +59,7 @@ function SignupModal(props) {
       return (
         <>
       <div onClick={handleShow} className="mr-2" style={{fontSize: "1rem", color: "white"}}>
-        New Account
+        Sign Up
         <Icon style={iconStyle} icon="line-md:account-add" />
       </div>
       <Modal show={show} onHide={handleClose}>

@@ -34,7 +34,6 @@ router.get("/checkToken", auth, function (req, res) {
 });
 
 router.post("/new", async (req, res) => {
-  console.log("request.body is: ", req.body);
 
   try {
     const { name, email, password, register_date } = req.body;
