@@ -31,6 +31,7 @@ class AppMap extends React.Component {
     this.props.updateActive(v);
   }
   activeMarker = (v) => {this.setState(v)}
+
   toggleSidebar = (v) => {
     if (this.state.barOpen !== v) {
       this.setState({
@@ -81,6 +82,7 @@ class AppMap extends React.Component {
           ))}
         </GoogleMapReact>
         <EditSidebar
+          id={this.state.active}
           user={this.props.user}
           owner={this.state.owner}
           show={this.state.barOpen}

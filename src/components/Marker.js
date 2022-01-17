@@ -12,13 +12,13 @@ const Marker = (props) => {
   };
 
   const handleClick = (e) => {
-    console.log("target is", e.currentTarget);
+    // console.log("target is", e.currentTarget);
     toggle(!props.barOpen);
     const splitURL = e.currentTarget.getAttribute("url").split('/')
     splitURL.splice(6,0,'c_crop,h_200,w_200,c_fill')
   const url = splitURL.join('/')
   // console.log("url is",url)
-  console.log("owner is",e.currentTarget.getAttribute("owner"));
+  // console.log("owner is",e.currentTarget.getAttribute("owner"));
     props.activeMarker({
       active: e.currentTarget.getAttribute("dbid"),
       desc: e.currentTarget.getAttribute("desc"),

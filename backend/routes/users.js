@@ -7,6 +7,19 @@ const config = require("config");
 const auth = require("../middleware/auth");
 const jwtSecret = config.get("JWT_SECRET");
 
+router.get("/logout", auth, (req, res) => {
+  return res
+    .clearCookie("token")
+    .status(200)
+    .json({ message: "Logout Success" });
+});
+
+router.get("/checkToken", auth, function (req, res) {
+  console.log("req.email is: ", req.email);
+  res.json({ email: req.email });  //Do I even need .status(200) here?
+  console.log("checkToken passed");
+});
+
 router.post("/login", async (req, res) => {
   const dbUser = await User.findOne({ email: req.body.email });
   try {
@@ -17,8 +30,8 @@ router.post("/login", async (req, res) => {
       res
         .cookie("token", accessToken, { httpOnly: true })
         .status(200)
-        .json({ message: "Logged in successfully", token: accessToken })
-        // .json({  });
+        .json({ message: "Logged in successfully", token: accessToken });
+      // .json({  });
     } else {
       res.json({ message: "Failed login attempt" });
     }
@@ -28,14 +41,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/checkToken", auth, function (req, res) {
-  console.log("req.email is: ", req.email)
-  res.status(200).json({email: req.email}) 
-  console.log("checkToken passed");
-});
-
 router.post("/new", async (req, res) => {
-
   try {
     const { name, email, password, register_date } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);

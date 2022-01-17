@@ -29,22 +29,31 @@ router.get("/list", async (req, res) => {
   }
 });
 
-// router.get("/list/:id", async (req, res) => {
-//   let { id } = req.params;
-//   console.log(id);
-//   try {
-//     const marker = markers.find((marker) => marker._id === id);
-//     console.log(marker);
-//     res.status(200).json({
-//       data: marker,
-//     });
-//   } catch (err) {
-//     res.status(400).json({
-//       message: "Some error occured",
-//       err,
-//     });
-//   }
-// });
+
+router.post("/update",auth, async (req, res) => {
+  // let { id } = req.body.id;
+  // console.log(id);
+  try {
+    await Spot.updateOne({ _id: req.body.id }, {
+      name: req.body.name,
+      desc: req.body.desc
+    });
+    res.status(200).json({
+      message:"Success: Entry Updated"
+    })
+
+    // const marker = markers.find((marker) => marker._id === id);
+    // console.log(marker);
+    // res.status(200).json({
+    //   data: marker,
+    // });
+  } catch (err) {
+    res.status(400).json({
+      message: "Some error occured",
+      err,
+    });
+  }
+});
 
 router.post("/upload-pic", auth, upload.single("files"), (req, res) => {
   console.log(req.body);

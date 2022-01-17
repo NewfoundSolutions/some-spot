@@ -16,7 +16,9 @@ class App extends React.Component {
     };
   }
   componentDidMount () {
-    axios.get("/users/checkToken").then((res) => {res.data.email ? this.setState({loggedIn:true, email:res.data.email}) : this.setState({loggedIn: false})} )
+    if(!this.state.loggedIn){
+      axios.get("/users/checkToken").then((res) => {res.data.email ? this.setState({loggedIn:true, email:res.data.email}) : this.setState({loggedIn: false, email:''})} )
+    } 
   }
   updateActive(t) {
     this.setState(t);
