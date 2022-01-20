@@ -22,9 +22,9 @@ app.use(express.json());
 //config 
 const db = process.env.NODE_APP_MONGO_URI;
 cloudinary.config({ 
-  cloud_name: process.env.REACT_APP_CLOUD_NAME, 
-  api_key: process.env.REACT_APP_CLOUD_KEY, 
-  api_secret: process.env.REACT_APP_CLOUD_SECRET 
+  cloud_name: process.env.NODE_APP_CLOUD_NAME, 
+  api_key: process.env.NODE_APP_CLOUD_KEY, 
+  api_secret: process.env.NODE_APP_CLOUD_SECRET 
 });
 
 
