@@ -9,10 +9,10 @@ const Account = () => {
 
   return (
     <>
-      <Button style={{ color: "white" }} onClick={handleShow}>
+      <Button style={{ color: "white" }} onClick={()=>handleShow}>
         Account
       </Button>
-      <Offcanvas show={show} onHide={handleClose}>
+      <Offcanvas show={show} onHide={()=>handleClose}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Account Display</Offcanvas.Title>
         </Offcanvas.Header>

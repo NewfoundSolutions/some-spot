@@ -11,14 +11,19 @@ class App extends React.Component {
       active: "",
       name: "",
       token: "",
-      loggedIn: "",
-      email: ""
+      loggedIn: null,
+      email: "",
     };
   }
-  componentDidMount () {
-    if(!this.state.loggedIn){
-      axios.get("/users/checkToken").then((res) => {res.data.email ? this.setState({loggedIn:true, email:res.data.email}) : this.setState({loggedIn: false, email:''})} )
-    } 
+  componentDidMount() {
+    if (this.state.loggedIn === null) {
+      axios.get("/users/checkToken")
+      .then((res) => {
+        res.data.email
+          ? this.setState({ loggedIn: true, email: res.data.email })
+          : this.setState({ loggedIn: false, email: "" });
+      }).catch((err) => console.log(err))
+    }
   }
   updateActive(t) {
     this.setState(t);

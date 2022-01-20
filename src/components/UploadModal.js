@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal } from "react-bootstrap";
+import { Modal,Button } from "react-bootstrap";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
 import Uploader from "./Uploader";
@@ -15,10 +15,10 @@ function UploadModal(props) {
 
   return (
     <>
-      <div onClick={handleShow} className="mr-2" style={{fontSize: "1rem", color: "white"}}>
+      <Button variant="dark" onClick={handleShow} className="mr-2" style={{fontSize: "1rem", color: "white"}}>
         New Memory
         <Icon icon="bx:bxs-map-pin" className="location-icon" />
-      </div>
+      </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Dialog>

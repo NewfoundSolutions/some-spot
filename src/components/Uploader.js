@@ -81,6 +81,7 @@ class Uploader extends React.Component {
             <FormControl
               as="textarea"
               aria-label="Description"
+              rows='4'
               placeholder="Describe the spot, your memories or anything else you would like to tag this pin with."
               onChange={(e) => {
                 this.setState({ desc: e.target.value });
@@ -90,23 +91,25 @@ class Uploader extends React.Component {
           </InputGroup>
 
           <Form.Group controlId="formFileSm" className="mb-3">
-    <Form.Label>Small file input example</Form.Label>
+    <Form.Label>Select an image with embedded GPS data, or use your devices location!</Form.Label>
     <Form.Control id="files" type="file" onChange={this.onFileChange}  size="sm" />
   </Form.Group>
+              <div style={{display:'flex'}} >
 
-          <Button
+          <Button variant = "dark" style={{margin:'auto'}}
             onClick={() => {
               return navigator.geolocation
-                ? navigator.geolocation.getCurrentPosition(this.geoLocSuccess)
-                : { lat: 0, long: 0 };
+              ? navigator.geolocation.getCurrentPosition(this.geoLocSuccess)
+              : { lat: 0, long: 0 };
             }}
-          >
+            >
             Use Device GPS
           </Button>
 
-          <Button variant="primary" onClick={this.onFileUpload} type="submit">
+          <Button variant="dark" style={{margin:'auto'}}onClick={this.onFileUpload} type="submit">
             Upload!
           </Button>
+            </div>
         </Form>
 
         

@@ -3,11 +3,12 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import Dropdown from "react-bootstrap/Dropdown";
-import { DropdownButton} from "react-bootstrap";
+import { DropdownButton,Button} from "react-bootstrap";
 import LoginModal from "./LoginModal";
 import UploadModal from "./UploadModal";
 import SignupModal from "./SignupModal";
-import Account from "./Account";
+import axios from "axios";
+// import Account from "./Account";
 
 class TopBar extends React.Component {
   updateParent(value) {
@@ -52,7 +53,7 @@ class TopBar extends React.Component {
           ) : (
             <div id="notSignedIn">Create an account or login to start!</div>
           )}
-          {this.props.loggedIn ? '<Account />' : <this.PreAuth />}
+          {this.props.loggedIn ? <Button variant="dark"style={{ color: "white" }} onClick={()=>axios.get('/users/logout').then(this.updateParent({loggedIn: false, email: ''}))}> Logout</Button> : <this.PreAuth />}
         </Container>
       </Navbar>
     );
