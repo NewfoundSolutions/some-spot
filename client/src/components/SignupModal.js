@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Modal, Form, Spinner } from "react-bootstrap";
-import { Icon } from "@iconify/react";
+import { Icon } from '@iconify/react';
+import accountAdd from '@iconify/icons-line-md/account-add';
 import { useState } from "react";
 import axios from "axios";
 
@@ -60,7 +61,7 @@ function SignupModal(props) {
         <>
       <div onClick={handleShow} className="mr-2" style={{fontSize: "1rem", color: "white"}}>
         Sign Up
-        <Icon style={iconStyle} icon="line-md:account-add" />
+        <Icon style={iconStyle} icon={accountAdd} />
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Dialog>

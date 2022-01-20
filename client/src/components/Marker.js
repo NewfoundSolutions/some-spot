@@ -1,5 +1,6 @@
 import React from "react";
 import { Icon } from "@iconify/react";
+import bxsMapPin from '@iconify/icons-bx/bxs-map-pin';
 
 const markerStyles = {
   position: "absolute",
@@ -43,7 +44,7 @@ const Marker = (props) => {
       active={props.active}
       onClick={handleClick}
     >
-      <Icon icon="bx:bxs-map-pin" className="location-icon" />
+      <Icon icon={bxsMapPin}  className="location-icon" />
     </div>
   );
 };

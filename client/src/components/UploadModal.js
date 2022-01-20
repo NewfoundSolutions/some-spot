@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal,Button } from "react-bootstrap";
 import { Icon } from "@iconify/react";
+import bxsMapPin from '@iconify/icons-bx/bxs-map-pin';
 import { useState } from "react";
 import Uploader from "./Uploader";
 
@@ -17,7 +18,7 @@ function UploadModal(props) {
     <>
       <Button variant="dark" onClick={handleShow} className="mr-2" style={{fontSize: "1rem", color: "white"}}>
         New Memory
-        <Icon icon="bx:bxs-map-pin" className="location-icon" />
+        <Icon icon={bxsMapPin} className="location-icon" />
       </Button>
 
       <Modal show={show} onHide={handleClose}>

@@ -27,5 +27,11 @@
     "multer": "^1.4.4",
     "path": "^0.12.7",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@iconify/icons-bx": "^1.1.4",
+    "@iconify/icons-line-md": "^1.1.0",
+    "@iconify/icons-mdi": "^1.1.42",
+    "@iconify/react": "^3.1.2"
   }
 }
