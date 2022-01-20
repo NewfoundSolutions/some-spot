@@ -1,4 +1,4 @@
-const config = require("config");
+
 const jwt = require("jsonwebtoken");
 
 const auth = function (req, res, next) {
@@ -6,7 +6,7 @@ const auth = function (req, res, next) {
   if (!accessToken) {
     return res.status(403).send("Unauthorized: No token");
   } else {
-    jwt.verify(accessToken, config.get("JWT_SECRET"), function (err, decoded) {
+    jwt.verify(accessToken, process.env.NODE_APP_JWT_SECRET, function (err, decoded) {
       if (err) {
         return res.status(401).send("Unauthorized: Invalid token");
       } else {

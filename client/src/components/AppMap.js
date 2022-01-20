@@ -1,7 +1,6 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
 import Marker from "./Marker";
-import { mapKey } from "../config/keys.js";
 import EditSidebar from "./EditSidebar.js";
 
 const mapStyle = {
@@ -58,7 +57,7 @@ class AppMap extends React.Component {
       <div className="map" style={mapStyle}>
         <GoogleMapReact
           yesIWantToUseGoogleMapApiInternals
-          bootstrapURLKeys={mapKey}
+          bootstrapURLKeys={process.env.REACT_APP_KEY}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
           

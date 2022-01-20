@@ -3,9 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
-const config = require("config");
 const auth = require("../middleware/auth");
-const jwtSecret = config.get("JWT_SECRET");
 
 router.get("/logout", auth, (req, res) => {
   return res
@@ -25,7 +23,7 @@ router.post("/login", async (req, res) => {
   try {
     const payload = { email: dbUser.email };
     const success = await bcrypt.compare(req.body.password, dbUser.password);
-    const accessToken = jwt.sign(payload, jwtSecret, { expiresIn: "1h" });
+    const accessToken = jwt.sign(payload, process.env.NODE_APP_JWT_SECRET, { expiresIn: "1h" });
     if (success) {
       res
         .cookie("token", accessToken, { httpOnly: true })
@@ -56,7 +54,7 @@ router.post("/new", async (req, res) => {
       });
       // console.log("newUser is: ", newUser);
       await newUser.save();
-      const accessToken = jwt.sign({ email }, jwtSecret, { expiresIn: "1h" });
+      const accessToken = jwt.sign({ email }, process.env.NODE_APP_JWT_SECRET, { expiresIn: "1h" });
       if (accessToken) {
         res.cookie("token", accessToken, { httpOnly: true });
         res.status(200).send({

@@ -2,10 +2,10 @@ const express = require("express");
 const path = require("path")
 const mongoose = require("mongoose");
 const cloudinary = require("cloudinary")
-const config = require("config");
 var cookieParser = require('cookie-parser');
 const cors = require("cors");
 const logger = require("morgan");
+const dotenv = require("dotenv").config()
 
 
 const app = express();
@@ -20,11 +20,11 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 
 //config 
-const db = config.get('mongoURI');
+const db = process.env.NODE_APP_MONGO_URI;
 cloudinary.config({ 
-  cloud_name: config.get('cloudName'), 
-  api_key: config.get('cloudKey'), 
-  api_secret: config.get('cloudSecret') 
+  cloud_name: process.env.REACT_APP_CLOUD_NAME, 
+  api_key: process.env.REACT_APP_CLOUD_KEY, 
+  api_secret: process.env.REACT_APP_CLOUD_SECRET 
 });
 
 
