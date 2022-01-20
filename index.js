@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path")
 const mongoose = require("mongoose");
 const cloudinary = require("cloudinary")
 const config = require("config");
@@ -8,6 +9,9 @@ const logger = require("morgan");
 
 
 const app = express();
+
+app.use(express.static(path.join(__dirname, 'client/build')));
+
 
 app.use(logger("dev"));
 app.use(cors());
@@ -37,7 +41,10 @@ const port = process.env.PORT || 3001;
 
 //routes
 app.use("/markers", markersRouter);
-app.use("/users", usersRouter)
+app.use("/users", usersRouter);
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
 
 
 app.listen(port, function() {
