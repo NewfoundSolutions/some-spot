@@ -1,52 +1,29 @@
 {
-  "name": "some-spot",
-  "version": "0.1.0",
-  "private": true,
-  "proxy": "http://localhost:3001",
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.15.0",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "axios": "^0.24.0",
-    "bootstrap": "^5.1.3",
-    "compressorjs": "^1.1.1",
-    "exifr": "^7.1.3",
-    "google-map-react": "^2.1.10",
-    "js-cookie": "^3.0.1",
-    "react": "^17.0.2",
-    "react-bootstrap": "^2.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "^5.0.0",
-    "web-vitals": "^1.1.2"
-  },
+  "name": "some-spot-server",
+  "version": "0.0.1",
+  "description": "Express server with simple API to support CRUD operations.",
+  "main": "index.js",
   "scripts": {
-    "server-install": "npm install --prefix backend",
-    "server": "cd backend && npm start",
-    "start": "react-scripts start",
-    "dev": "concurrently \"npm run server\" \"npm run start\"",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"npm start\" \"npm run client\"",
+    "client-install": "npm install --prefix client",
+    "client": "cd client && npm start"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@iconify/react": "^3.1.0"
+  "author": "Tim P",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cloudinary": "^1.27.1",
+    "config": "^3.3.6",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.14",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.4",
+    "uuid": "^8.3.2"
   }
 }
