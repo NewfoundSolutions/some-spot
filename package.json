@@ -4,9 +4,9 @@
   "description": "Express server with simple API to support CRUD operations.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"npm start\" \"npm run client\"",
+    "dev": "concurrently \"nodemon index.js\" \"npm run client\"",
     "client-install": "npm install --prefix client",
     "heroku-postbuild": "cd client && npm install && npm run build",
     "client": "cd client && npm start"
