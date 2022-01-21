@@ -40,6 +40,7 @@ const usersRouter = require("./routes/users");
 const port = process.env.PORT || 3001;
 
 //routes
+
 app.use("/markers", markersRouter);
 app.use("/users", usersRouter);
 app.get('*', (req, res) => {

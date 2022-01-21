@@ -8,11 +8,9 @@ const mongoose = require("mongoose");
 const Spot = require("../models/Spot");
 const User = require("../models/User");
 
-const auth = require ("../middleware/auth");
-
+const auth = require("../middleware/auth");
 
 //const markers = require("../data/tempLocations");
-
 
 router.get("/list", async (req, res) => {
   try {
@@ -30,17 +28,20 @@ router.get("/list", async (req, res) => {
 });
 
 
-router.post("/update",auth, async (req, res) => {
+router.post("/update", auth, async (req, res) => {
   // let { id } = req.body.id;
   // console.log(id);
   try {
-    await Spot.updateOne({ _id: req.body.id }, {
-      name: req.body.name,
-      desc: req.body.desc
-    });
+    await Spot.updateOne(
+      { _id: req.body.id },
+      {
+        name: req.body.name,
+        desc: req.body.desc,
+      }
+    );
     res.status(200).json({
-      message:"Success: Entry Updated"
-    })
+      message: "Success: Entry Updated",
+    });
 
     // const marker = markers.find((marker) => marker._id === id);
     // console.log(marker);
@@ -67,25 +68,27 @@ router.post("/upload-pic", auth, upload.single("files"), (req, res) => {
     cloudinary.uploader
       .upload(data.image.path)
       .then(async (result) => {
-        console.log("result.url is: ",result.url);
-        const newSpot = new Spot ({
+        console.log("result.url is: ", result.url);
+        const newSpot = new Spot({
           _id: new mongoose.Types.ObjectId(),
           name: req.body.name,
           lat: req.body.lat,
           lng: req.body.lng,
           url: result.url,
           desc: req.body.desc,
-          owner: req.body.owner
-        })
-        console.log("newSpot is: ",newSpot)
+          owner: req.body.owner,
+        });
+        console.log("newSpot is: ", newSpot);
         await newSpot.save();
-      
-        await User.updateOne({email: req.body.owner}, {$push: {entries: newSpot._id}})
-      
+
+        await User.updateOne(
+          { email: req.body.owner },
+          { $push: { entries: newSpot._id } }
+        );
 
         res.status(200).send({
           message: "upload successful",
-          newSpot: newSpot
+          newSpot: newSpot,
         });
       })
       .catch((error) => {

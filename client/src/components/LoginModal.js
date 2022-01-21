@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { Icon } from "@iconify/react";
+import accountCircle from '@iconify/icons-mdi/account-circle';
 import { useState } from "react";
 import axios from "axios";
 
@@ -56,7 +57,7 @@ function LoginModal(props) {
     <>
       <div onClick={handleShow} className="mr-2" style={{fontSize: "1rem", color: "white"}}>
         Sign-In
-        <Icon style={iconStyle} icon="mdi:account-circle" />
+        <Icon style={iconStyle} icon={accountCircle} />
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Dialog>
