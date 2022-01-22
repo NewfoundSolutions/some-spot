@@ -85,7 +85,6 @@ class Uploader extends React.Component {
               placeholder="Describe the spot, your memories or anything else you would like to tag this pin with."
               onChange={(e) => {
                 this.setState({ desc: e.target.value });
-                console.log("this.state is:", this.state);
               }}
             />
           </InputGroup>

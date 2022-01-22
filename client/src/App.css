@@ -1,3 +1,18 @@
 #notSignedIn {
     color:white
 }
+.modal-content{
+    outline: 0;
+    background-color: #292f33;
+    color: #aadaff;
+}
+.offcanvas{
+    background-color: #292f33;
+    color: #aadaff;
+}
+.form-control {
+    background-color: transparent;
+}
+.text-muted {
+    color: #aadaff;
+}

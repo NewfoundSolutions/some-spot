@@ -1,5 +1,5 @@
 import { React} from "react";
-import { Offcanvas, Form, Container,Col } from "react-bootstrap";
+import { Offcanvas, Form, Container,Col,Button } from "react-bootstrap";
 import Image from 'react-bootstrap/Image'
 import axios from "axios";
 import { useState } from "react";
@@ -56,9 +56,9 @@ function EditSidebar(props) {
       <Form.Label>Description</Form.Label>
       <Form.Control as="textarea" rows="3" placeholder={props.desc} onChange={handleChange}/>
     </Form.Group>
-    <button type="button" onClick={handleUpdate}>
+    <Button variant="dark" type="button" onClick={handleUpdate}>
     Update
-  </button>
+  </Button>
   </Form>)}
   
   return (

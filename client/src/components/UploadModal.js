@@ -23,7 +23,7 @@ function UploadModal(props) {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Dialog>
-          <Modal.Body>
+          <Modal.Body >
             {uploadDone ? (
               <h1>"Memory Saved!"</h1>
             ) : (
