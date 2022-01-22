@@ -59,8 +59,8 @@ class Uploader extends React.Component {
     return (
       <>
       <h3>Create a New Spot!</h3>
-        <Form id="form">
-          <Form.Group className="mb-3" controlId="formBasicName">
+        <Form >
+          <Form.Group className="mb-3" id="form">
             <Form.Label>Name</Form.Label>
             <Form.Control
               type="text"
@@ -90,9 +90,9 @@ class Uploader extends React.Component {
             />
           </InputGroup>
 
-          <Form.Group controlId="formFileSm" className="mb-3">
+          <Form.Group  className="mb-3">
     <Form.Label>Select an image with embedded GPS data, or use your devices location!</Form.Label>
-    <Form.Control id="files" type="file" onChange={this.onFileChange}  size="sm" />
+    <Form.Control id="files" type="file" onChange={this.onFileChange}  size="sm" encType="multipart/form-data"/>
   </Form.Group>
               <div style={{display:'flex'}} >
 
