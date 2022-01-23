@@ -16,7 +16,7 @@ const Marker = (props) => {
     // console.log("target is", e.currentTarget);
     toggle(!props.barOpen);
     const splitURL = e.currentTarget.getAttribute("url").split('/')
-    splitURL.splice(6,0,'c_crop,h_200,w_200,c_fill')
+    splitURL.splice(6,0,'c_crop,w_300,c_fill')
   const url = splitURL.join('/')
   // console.log("url is",url)
   // console.log("owner is",e.currentTarget.getAttribute("owner"));

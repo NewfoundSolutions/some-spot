@@ -120,7 +120,7 @@ function SignupModal(props) {
 
             <Modal.Footer>
               {formState.submited ? (
-                <Button variant="primary" disabled>
+                <Button variant="dark" disabled>
                   <Spinner
                     as="span"
                     animation="grow"
@@ -131,7 +131,7 @@ function SignupModal(props) {
                   Loading...
                 </Button>
               ) : (
-                <Button variant="primary" onClick={onSubmit} type="submit">
+                <Button variant="dark" onClick={onSubmit} type="submit">
                   Sign Up
                 </Button>
               )}

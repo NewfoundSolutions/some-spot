@@ -11,7 +11,7 @@ function EditSidebar(props) {
       <Container>
         <Col>{props.name}</Col>
         <Col>
-        <Image rounded="true" src={props.url}/>
+        <Image fluid="true" rounded="true" src={props.url}/>
         </Col>
         <Col>
         {props.desc}
@@ -64,7 +64,7 @@ function EditSidebar(props) {
   return (
     <>
     
-      <Offcanvas show={props.show} onHide={props.handleClose}>
+      <Offcanvas show={props.show} onHide={props.handleClose} placement="end">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Memory Display</Offcanvas.Title>
         </Offcanvas.Header>

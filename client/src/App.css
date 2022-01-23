@@ -16,3 +16,9 @@
 .text-muted {
     color: #aadaff;
 }
+.rounded {
+    max-width: 100%;
+}
+.btn-close {
+    background-color: #aadaff;
+}

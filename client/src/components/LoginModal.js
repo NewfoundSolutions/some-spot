@@ -94,7 +94,7 @@ function LoginModal(props) {
             </Modal.Body>
 
             <Modal.Footer>
-              <Button variant="primary" onClick={handleSignin} type="submit">
+              <Button variant="dark" onClick={handleSignin} type="submit">
                 Sign In
               </Button>
             </Modal.Footer>
