@@ -27,6 +27,11 @@ class AppMap extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps){
+    if (this.state.updatedLast !== prevProps.updatedLast) {
+     this.setState({updatedLast: this.props.updatedLast});
+   }
+ }
   updateParent(v) {
     this.props.updateActive(v);
   }
@@ -82,6 +87,7 @@ class AppMap extends React.Component {
           ))}
         </GoogleMapReact>
         <EditSidebar
+          mapUpdated={this.props.mapUpdated}
           id={this.state.active}
           user={this.props.user}
           owner={this.state.owner}

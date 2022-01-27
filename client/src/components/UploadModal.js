@@ -27,7 +27,7 @@ function UploadModal(props) {
             {uploadDone ? (
               <h1>"Memory Saved!"</h1>
             ) : (
-              <Uploader loggedIn= {props.loggedIn}setUploadDone={setUploadDone} />
+              <Uploader loggedIn= {props.loggedIn}email={props.email}setUploadDone={setUploadDone} />
             )}
           </Modal.Body>
           

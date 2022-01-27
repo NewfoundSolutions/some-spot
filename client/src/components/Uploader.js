@@ -31,7 +31,7 @@ class Uploader extends React.Component {
     formData.append("lat", this.state.lat);
     formData.append("lng", this.state.lng);
     formData.append("desc", this.state.desc);
-    formData.append("owner", this.props.loggedIn);
+    formData.append("owner", this.props.email);
 
     const image = this.state.selectedFile;
     new Compressor(image, {

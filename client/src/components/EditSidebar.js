@@ -1,40 +1,41 @@
-import { React} from "react";
-import { Offcanvas, Form, Container,Col,Button } from "react-bootstrap";
-import Image from 'react-bootstrap/Image'
+import { React } from "react";
+import { Offcanvas, Form, Container, Col, Button } from "react-bootstrap";
+import Image from "react-bootstrap/Image";
 import axios from "axios";
 import { useState } from "react";
 
 function EditSidebar(props) {
-  
   const Readable = () => {
     return (
       <Container>
         <Col>{props.name}</Col>
         <Col>
-        <Image fluid="true" rounded="true" src={props.url}/>
+          <Image fluid="true" rounded="true" src={props.url} />
         </Col>
-        <Col>
-        {props.desc}
-        </Col>
-      
-        </Container>
-    )
-  }
-  const Editable = () => { 
+        <Col>{props.desc}</Col>
+      </Container>
+    );
+  };
+  const Editable = () => {
     const handleUpdate = () => {
-      axios.post('/markers/update', {id: formState.id, name:formState.name, desc:formState.desc})
-      .then(res => {
-        props.handleClose()
-      })
-    }
+      axios
+        .post("/markers/update", {
+          id: formState.id,
+          name: formState.name,
+          desc: formState.desc,
+        })
+        .then((res) => {
+          props.handleClose();
+        });
+    };
 
     //TODO: Check if post changed from initial state, prompt if no changes.
-    const [formState,setFormState] = useState({
+    const [formState, setFormState] = useState({
       id: props.id,
       name: props.name,
-      desc:props.desc,
-      feedback: ''
-    })
+      desc: props.desc,
+      feedback: "",
+    });
 
     const handleChange = (e) => {
       e.preventDefault();
@@ -45,36 +46,62 @@ function EditSidebar(props) {
       }));
       // console.log("formstate is",formState);
     };
-    return ( 
-    <Form>
-    <Image rounded="true" src={props.url}/>
-    <Form.Group className="mb-3" controlId="name">
-      <Form.Label>Name</Form.Label>
-      <Form.Control type="text" placeholder={props.name} onChange={handleChange}/>
-    </Form.Group>
-    <Form.Group className="mb-3" controlId="desc">
-      <Form.Label>Description</Form.Label>
-      <Form.Control as="textarea" rows="3" placeholder={props.desc} onChange={handleChange}/>
-    </Form.Group>
-    <Button variant="dark" type="button" onClick={handleUpdate}>
-    Update
-  </Button>
-  </Form>)}
-  
+    const handleDelete = (e) => {
+      e.preventDefault();
+      console.log("deleting id:", props.id);
+      axios
+        .delete("/markers/delete", { data: { id: props.id } })
+        .then(props.mapUpdated(props.id))
+        .then(props.handleClose);
+    };
+    return (
+      <Form>
+        <Image rounded="true" src={props.url} />
+        <Form.Group className="mb-3" controlId="name">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder={props.name}
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="desc">
+          <Form.Label>Description</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows="3"
+            placeholder={props.desc}
+            onChange={handleChange}
+          />
+        </Form.Group>
+        <Form.Group className="sidebar-controls">
+          <Button variant="dark" type="button" onClick={handleUpdate}>
+            Update
+          </Button>
+          <Button variant="danger" type="button" onClick={handleDelete}>
+            Delete
+          </Button>
+        </Form.Group>
+      </Form>
+    );
+  };
+
   return (
     <>
-    
       <Offcanvas show={props.show} onHide={props.handleClose} placement="end">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Memory Display</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-         {props.owner === props.user && props.owner !== undefined ?  <Editable /> : <Readable />}
+          {props.owner === props.user && props.owner !== undefined ? (
+            <Editable />
+          ) : (
+            <Readable />
+          )}
         </Offcanvas.Body>
       </Offcanvas>
     </>
   );
 }
-
 
 export default EditSidebar;

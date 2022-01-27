@@ -30,7 +30,7 @@ function SignupModal(props) {
       ...prevState,
       [id]: value,
     }));
-    console.log(formState.name);
+  
   };
 
   const onSubmit = async (e) => {

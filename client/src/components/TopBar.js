@@ -48,7 +48,7 @@ class TopBar extends React.Component {
 
           {this.props.loggedIn ? (
             <Nav>
-              <UploadModal loggedIn={this.props.loggedIn} />{" "}
+              <UploadModal email={this.props.email} loggedIn={this.props.loggedIn} />{" "}
             </Nav>
           ) : ''}
           {this.props.loggedIn ? <Button variant="dark"style={{ color: "white" }} onClick={()=>axios.get('/users/logout').then(this.updateParent({loggedIn: false, email: ''}))}> Logout</Button> : <this.PreAuth />}

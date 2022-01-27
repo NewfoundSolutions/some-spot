@@ -14,10 +14,11 @@ class App extends React.Component {
       loggedIn: null,
       email: "",
       error: "",
+      updatedLast: ''
     };
   }
   componentDidMount() {
-  if (this.state.loggedIn === null) {
+  if (this.state.loggedIn === null || this.state.email === "") {
       axios
         .get("/users/checkToken")
         .then((res) => {
@@ -32,14 +33,22 @@ class App extends React.Component {
     this.setState(t);
     //todo: Sanity checking
   }
+  mapUpdated (id) { 
+    this.setState( (prevState) =>
+      ({...prevState, updatedLast: id}))
+  }
   render() {
     return (
       <div className="App">
         <TopBar
+          mapUpdated={this.mapUpdated.bind(this)}
           loggedIn={this.state.loggedIn}
+          email={this.state.email}
           updateActive={this.updateActive.bind(this)}
         />
         <AppMap
+          updatedLast={this.state.updatedLast}
+          mapUpdated={this.mapUpdated.bind(this)}
           user={this.state.email}
           active={this.state.active}
           updateActive={this.updateActive.bind(this)}

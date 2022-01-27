@@ -4,6 +4,8 @@ const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 var cloudinary = require("cloudinary").v2;
 const mongoose = require("mongoose");
+const { readdirSync, rmSync } = require("fs");
+const dir = "./uploads";
 
 const Spot = require("../models/Spot");
 const User = require("../models/User");
@@ -26,7 +28,6 @@ router.get("/list", async (req, res) => {
     });
   }
 });
-
 
 router.post("/update", auth, async (req, res) => {
   // let { id } = req.body.id;
@@ -78,7 +79,11 @@ router.post("/upload-pic", auth, upload.single("files"), (req, res) => {
           desc: req.body.desc,
           owner: req.body.owner,
         });
-        console.log("newSpot is: ", newSpot);
+
+        // readdirSync deletes images uploaded with multer.
+        // required due to issues implementing multer memory storage.
+        //console.log("newSpot is: ", newSpot);
+        readdirSync(dir).forEach((f) => rmSync(`${dir}/${f}`));
         await newSpot.save();
 
         await User.updateOne(
@@ -105,5 +110,21 @@ router.post("/upload-pic", auth, upload.single("files"), (req, res) => {
     });
   }
 });
+router.delete("/delete", auth, async (req, res) => {
+  // console.log("req.body is",req.body)
 
+
+    await Spot.deleteOne({_id:req.body.id})
+    .then(res.status(200).send({
+      message:"success"
+    }))
+    .catch((error) => {
+      console.log(error);
+      res.status(400).send({
+        message: "Delete failed, error message: ",
+        error,
+      });
+    });
+  
+  });
 module.exports = router;

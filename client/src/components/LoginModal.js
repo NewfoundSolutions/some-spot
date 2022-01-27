@@ -36,7 +36,7 @@ function LoginModal(props) {
       .then((res) => {
         // console.log("res.data.message is: ", res.data.message)
         if (res.data.message) setAuthFail(res.data.message);
-        props.updateParent({token: res.data.token, loggedIn: formState.email})
+        props.updateParent({token: res.data.token,loggedIn:true, email: formState.email})
         //props.updateParent({})
         //handleClose();
       })
