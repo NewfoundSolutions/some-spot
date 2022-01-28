@@ -17,25 +17,24 @@ function EditSidebar(props) {
     );
   };
   const Editable = () => {
-    const handleUpdate = () => {
-      axios
-        .post("/markers/update", {
-          id: formState.id,
-          name: formState.name,
-          desc: formState.desc,
-        })
-        .then((res) => {
-          props.handleClose();
-        });
-    };
-
-    //TODO: Check if post changed from initial state, prompt if no changes.
     const [formState, setFormState] = useState({
       id: props.id,
       name: props.name,
       desc: props.desc,
       feedback: "",
     });
+    const handleUpdate = () => {
+      //TODO: Check if post changed from initial state, prompt if no changes.
+      axios
+        .post("/markers/update", {
+          id: formState.id,
+          name: formState.name,
+          desc: formState.desc,
+        })
+        .then(props.updateMarker(props.id))
+        .then(props.handleClose);
+    };
+
 
     const handleChange = (e) => {
       e.preventDefault();
@@ -51,7 +50,7 @@ function EditSidebar(props) {
       console.log("deleting id:", props.id);
       axios
         .delete("/markers/delete", { data: { id: props.id } })
-        .then(props.mapUpdated(props.id))
+        .then(props.updateMarker('deleted'))
         .then(props.handleClose);
     };
     return (

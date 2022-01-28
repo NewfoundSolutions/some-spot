@@ -29,9 +29,29 @@ router.get("/list", async (req, res) => {
   }
 });
 
+router.get(`/list/:id`, async (req, res) => {
+  try {
+    // console.log("req.params.id is:", req.params.id)
+    await Spot.findOne({ _id: req.params.id }).then((spot) => {
+      res.status(200).json({
+        message: "Success",
+        updatedSpot: spot ? spot : 'deleted'
+      });
+    });
+
+    // res.status(200).json({
+    //   message: "Success",
+    //   updatedEntry: toUpdate
+    // })
+  } catch (err) {
+    res.status(400).json({
+      message: "An error occured",
+      err,
+    });
+  }
+});
+
 router.post("/update", auth, async (req, res) => {
-  // let { id } = req.body.id;
-  // console.log(id);
   try {
     await Spot.updateOne(
       { _id: req.body.id },
@@ -39,16 +59,12 @@ router.post("/update", auth, async (req, res) => {
         name: req.body.name,
         desc: req.body.desc,
       }
+    ).then(
+      res.status(200).json({
+        message: "Success: Entry Updated",
+        id: req.body.id,
+      })
     );
-    res.status(200).json({
-      message: "Success: Entry Updated",
-    });
-
-    // const marker = markers.find((marker) => marker._id === id);
-    // console.log(marker);
-    // res.status(200).json({
-    //   data: marker,
-    // });
   } catch (err) {
     res.status(400).json({
       message: "Some error occured",
@@ -93,7 +109,7 @@ router.post("/upload-pic", auth, upload.single("files"), (req, res) => {
 
         res.status(200).send({
           message: "upload successful",
-          newSpot: newSpot,
+          id: newSpot._id,
         });
       })
       .catch((error) => {
@@ -112,12 +128,14 @@ router.post("/upload-pic", auth, upload.single("files"), (req, res) => {
 });
 router.delete("/delete", auth, async (req, res) => {
   // console.log("req.body is",req.body)
-
-
-    await Spot.deleteOne({_id:req.body.id})
-    .then(res.status(200).send({
-      message:"success"
-    }))
+  const deleted = req.body.id;
+  await Spot.deleteOne({ _id: req.body.id })
+    .then(
+      res.status(200).json({
+        message: "Deletion successful",
+        id: 'deleted',
+      })
+    )
     .catch((error) => {
       console.log(error);
       res.status(400).send({
@@ -125,6 +143,5 @@ router.delete("/delete", auth, async (req, res) => {
         error,
       });
     });
-  
-  });
+});
 module.exports = router;

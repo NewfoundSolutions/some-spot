@@ -5,14 +5,14 @@ import EditSidebar from "./EditSidebar.js";
 
 const mapKey = process.env.REACT_APP_KEY;
 const mapStyle = {
-  width: '100%',
-  height: '100%',
-  left: '0',
-  top: '0',
-  margin: '0',
-  padding: '0',
-  position: 'absolute'
-}
+  width: "100%",
+  height: "100%",
+  left: "0",
+  top: "0",
+  margin: "0",
+  padding: "0",
+  position: "absolute",
+};
 
 class AppMap extends React.Component {
   constructor(props) {
@@ -23,19 +23,16 @@ class AppMap extends React.Component {
       name: "",
       desc: "",
       url: "",
-      owner: ""
+      owner: "",
     };
   }
 
-  componentDidUpdate(prevProps){
-    if (this.state.updatedLast !== prevProps.updatedLast) {
-     this.setState({updatedLast: this.props.updatedLast});
-   }
- }
   updateParent(v) {
     this.props.updateActive(v);
   }
-  activeMarker = (v) => {this.setState(v)}
+  activeMarker = (v) => {
+    this.setState(v);
+  };
 
   toggleSidebar = (v) => {
     if (this.state.barOpen !== v) {
@@ -45,31 +42,44 @@ class AppMap extends React.Component {
     }
   };
 
+  fetchMarkerList(id) {
+    console.log("fetching id:",id)
+    if ((id === undefined) || (id === 'deleted')) {
+      fetch("/markers/list")
+        .then((res) => res.json())
+        .then((responseJson) => {
+          // console.log("responseJson is",responseJson.data[0]._id)
+          this.setState(() => {
+            return { markers: responseJson.data };
+          });
+        });
+      } else {
+      const markerList = this.state.markers.slice();
+      fetch(`/markers/list/${id}`)
+        .then((res) => res.json())
+        .then((responseJson) => {
+          const editedList = markerList.map(marker => marker._id === responseJson.updatedSpot._id ? responseJson.updatedSpot :  marker)
+          this.setState({markers: editedList});
+        });
+
+    }
+  }
 
   componentDidMount() {
-
-    fetch("/markers/list")
-      .then((res) => res.json())
-      .then((responseJson) => {
-        // console.log("responseJson is",responseJson.data[0]._id)
-        this.setState(() => {
-          return { markers: responseJson.data };
-        });
-      });
+    this.fetchMarkerList();
   }
-  
+
   render() {
     return (
       <div className="map" style={mapStyle}>
         <GoogleMapReact
-          bootstrapURLKeys={{key:mapKey}}
+          bootstrapURLKeys={{ key: mapKey }}
           yesIWantToUseGoogleMapApiInternals
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
-          
         >
           {/* Populate above map with markers */}
-          {this.state.markers.map((entry, i) => (
+          {this.state.markers.map((entry) => (
             <Marker
               key={entry._id}
               dbid={entry._id}
@@ -87,7 +97,7 @@ class AppMap extends React.Component {
           ))}
         </GoogleMapReact>
         <EditSidebar
-          mapUpdated={this.props.mapUpdated}
+          updateMarker={this.fetchMarkerList.bind(this)}
           id={this.state.active}
           user={this.props.user}
           owner={this.state.owner}
