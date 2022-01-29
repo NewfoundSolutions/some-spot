@@ -50,13 +50,13 @@ class Uploader extends React.Component {
   };
   geoLocSuccess = (pos) => {
     this.setState({ lat: pos.coords.latitude, lng: pos.coords.longitude });
-    console.log(this.state);
+    // console.log(this.state);
   };
   render() {
     return (
       <>
-      <h3>Create a New Spot!</h3>
-        <Form >
+        <h3>Create a New Spot!</h3>
+        <Form>
           <Form.Group className="mb-3" id="form">
             <Form.Label>Name</Form.Label>
             <Form.Control
@@ -73,12 +73,12 @@ class Uploader extends React.Component {
             </Form.Text>
           </Form.Group>
 
-          <InputGroup> 
-          <InputGroup.Text>Description</InputGroup.Text>
+          <InputGroup>
+            <InputGroup.Text>Description</InputGroup.Text>
             <FormControl
               as="textarea"
               aria-label="Description"
-              rows='4'
+              rows="4"
               placeholder="Describe the spot, your memories or anything else you would like to tag this pin with."
               onChange={(e) => {
                 this.setState({ desc: e.target.value });
@@ -86,29 +86,42 @@ class Uploader extends React.Component {
             />
           </InputGroup>
 
-          <Form.Group  className="mb-3">
-    <Form.Label>Select an image with embedded GPS data, or use your devices location!</Form.Label>
-    <Form.Control id="files" type="file" onChange={this.onFileChange}  size="sm" encType="multipart/form-data"/>
-  </Form.Group>
-              <div style={{display:'flex'}} >
-
-          <Button variant = "dark" style={{margin:'auto'}}
-            onClick={() => {
-              return navigator.geolocation
-              ? navigator.geolocation.getCurrentPosition(this.geoLocSuccess)
-              : { lat: 0, long: 0 };
-            }}
+          <Form.Group className="mb-3">
+            <Form.Label>
+              Select an image with embedded GPS data, or use your devices
+              location!
+            </Form.Label>
+            <Form.Control
+              id="files"
+              type="file"
+              onChange={this.onFileChange}
+              size="sm"
+              encType="multipart/form-data"
+            />
+          </Form.Group>
+          <div style={{ display: "flex" }}>
+            <Button
+              variant="dark"
+              style={{ margin: "auto" }}
+              onClick={() => {
+                return navigator.geolocation
+                  ? navigator.geolocation.getCurrentPosition(this.geoLocSuccess)
+                  : { lat: 0, long: 0 };
+              }}
             >
-            Use Device GPS
-          </Button>
+              Use Device GPS
+            </Button>
 
-          <Button variant="dark" style={{margin:'auto'}}onClick={this.onFileUpload} type="submit">
-            Upload!
-          </Button>
-            </div>
+            <Button
+              variant="dark"
+              style={{ margin: "auto" }}
+              onClick={this.onFileUpload}
+              type="submit"
+            >
+              Upload!
+            </Button>
+          </div>
         </Form>
-
-        
       </>
     );
   }

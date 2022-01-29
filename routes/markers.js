@@ -85,7 +85,7 @@ router.post("/upload-pic", auth, upload.single("files"), async (req, res) => {
     cloudinary.uploader
       .upload(data.image.path)
       .then(async (result) => {
-        console.log("result.url is: ", result.url);
+        // console.log("result.url is: ", result.url);
         const newSpot = new Spot({
           _id: new mongoose.Types.ObjectId(),
           name: req.body.name,
@@ -95,10 +95,13 @@ router.post("/upload-pic", auth, upload.single("files"), async (req, res) => {
           desc: req.body.desc,
           owner: req.body.owner,
         });
-
+        res.status(200).send({
+          message: "upload successful",
+          id: newSpot._id,
+        });
         // readdirSync deletes images uploaded with multer.
         // required due to issues implementing multer memory storage.
-        //console.log("newSpot is: ", newSpot);
+        // console.log("newSpot is: ", newSpot);
         readdirSync(dir).forEach((f) => rmSync(`${dir}/${f}`));
         await newSpot.save();
 
@@ -107,10 +110,7 @@ router.post("/upload-pic", auth, upload.single("files"), async (req, res) => {
           { $push: { entries: newSpot._id } }
         );
 
-        res.status(200).send({
-          message: "upload successful",
-          id: newSpot._id,
-        });
+        
       })
       .catch((error) => {
         console.log(error);
