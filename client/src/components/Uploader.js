@@ -40,17 +40,14 @@ class Uploader extends React.Component {
         formData.append("files", result, result.name);
         axios
           .post("/markers/upload-pic", formData)
-          .then((res) => {
-            // redirect to memory page
-          })
+          .then(this.props.setUploadDone(true))
           .catch((err) => console.log(err));
       },
       error(err) {
         console.log(err.message);
       },
     });
-    this.props.setUploadDone(true);
-  };
+    };
   geoLocSuccess = (pos) => {
     this.setState({ lat: pos.coords.latitude, lng: pos.coords.longitude });
     console.log(this.state);
