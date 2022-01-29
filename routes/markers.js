@@ -73,7 +73,7 @@ router.post("/update", auth, async (req, res) => {
   }
 });
 
-router.post("/upload-pic", auth, upload.single("files"), (req, res) => {
+router.post("/upload-pic", auth, upload.single("files"), async (req, res) => {
   console.log(req.body);
 
   try {

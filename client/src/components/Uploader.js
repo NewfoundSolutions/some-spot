@@ -25,7 +25,8 @@ class Uploader extends React.Component {
     this.setState({ selectedFile: targetImage[0] });
   };
 
-  onFileUpload = async () => {
+  onFileUpload = async (e) => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append("name", this.state.name);
     formData.append("lat", this.state.lat);
