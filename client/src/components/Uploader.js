@@ -25,7 +25,8 @@ class Uploader extends React.Component {
     this.setState({ selectedFile: targetImage[0] });
   };
 
-  onFileUpload = async () => {
+  onFileUpload = async (e) => {
+    e.preventDefault();
     const formData = new FormData();
     formData.append("name", this.state.name);
     formData.append("lat", this.state.lat);
@@ -34,19 +35,25 @@ class Uploader extends React.Component {
     formData.append("owner", this.props.email);
 
     const image = this.state.selectedFile;
+    const newMarker = this.props.newMarker;
     new Compressor(image, {
       quality: 0.6,
       success(result) {
         formData.append("files", result, result.name);
         axios
           .post("/markers/upload-pic", formData)
+          .then((res) => {
+          newMarker({shouldRerender:res.data.id})
+          })
           .catch((err) => console.log(err));
       },
       error(err) {
         console.log(err.message);
       },
     });
+    //this.props.newMarker({shouldRerender:"updated"})
     this.props.setUploadDone(true);
+    
   };
   geoLocSuccess = (pos) => {
     this.setState({ lat: pos.coords.latitude, lng: pos.coords.longitude });

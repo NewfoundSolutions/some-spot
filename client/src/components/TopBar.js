@@ -21,7 +21,6 @@ class TopBar extends React.Component {
         menuVariant="dark"
         variant="dark"
         id="dropdown-basic-button"
-        // style={{ overflowY: "visible", overflowX: "visible" }}
         size="md"
         title="Account"
       >
@@ -48,7 +47,7 @@ class TopBar extends React.Component {
 
           {this.props.loggedIn ? (
             <Nav>
-              <UploadModal email={this.props.email} loggedIn={this.props.loggedIn} />{" "}
+              <UploadModal email={this.props.email} loggedIn={this.props.loggedIn} newMarker={this.updateParent.bind(this)} />{" "}
             </Nav>
           ) : ''}
           {this.props.loggedIn ? <Button variant="dark"style={{ color: "white" }} onClick={()=>axios.get('/users/logout').then(this.updateParent({loggedIn: false, email: ''}))}> Logout</Button> : <this.PreAuth />}

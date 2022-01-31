@@ -47,7 +47,7 @@ function EditSidebar(props) {
     };
     const handleDelete = (e) => {
       e.preventDefault();
-      console.log("deleting id:", props.id);
+      // console.log("deleting id:", props.id);
       axios
         .delete("/markers/delete", { data: { id: props.id } })
         .then(props.updateMarker('deleted'))

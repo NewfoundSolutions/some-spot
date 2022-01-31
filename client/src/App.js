@@ -13,7 +13,8 @@ class App extends React.Component {
       token: "",
       loggedIn: null,
       email: "",
-      error: ""
+      error: "",
+      shouldRerender: 'false'
     };
   }
   componentDidMount() {
@@ -28,6 +29,11 @@ class App extends React.Component {
         .catch((err) => console.log(err));
     }
   }
+
+  newMarkerPosted(newMarkerID){
+
+    this.setState({shouldRerender: newMarkerID})
+  }
   updateActive(t) {
     this.setState(t);
     //todo: Sanity checking
@@ -39,8 +45,10 @@ class App extends React.Component {
           loggedIn={this.state.loggedIn}
           email={this.state.email}
           updateActive={this.updateActive.bind(this)}
+          newMarker={this.newMarkerPosted.bind(this)}
         />
         <AppMap
+          shouldRerender={this.state.shouldRerender}
           user={this.state.email}
           active={this.state.active}
           updateActive={this.updateActive.bind(this)}

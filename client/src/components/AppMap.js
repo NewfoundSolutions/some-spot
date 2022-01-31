@@ -20,10 +20,12 @@ class AppMap extends React.Component {
     this.state = {
       markers: [],
       barOpen: false,
+      active: "",
       name: "",
       desc: "",
       url: "",
       owner: "",
+      shouldRerender: this.props.shouldRerender,
     };
   }
 
@@ -43,8 +45,8 @@ class AppMap extends React.Component {
   };
 
   fetchMarkerList(id) {
-    console.log("fetching id:",id)
-    if ((id === undefined) || (id === 'deleted')) {
+    //console.log("fetching id:", id);
+    if (id === undefined || id === "deleted" || id === "updated") {
       fetch("/markers/list")
         .then((res) => res.json())
         .then((responseJson) => {
@@ -53,18 +55,29 @@ class AppMap extends React.Component {
             return { markers: responseJson.data };
           });
         });
-      } else {
+    } else {
       const markerList = this.state.markers.slice();
       fetch(`/markers/list/${id}`)
         .then((res) => res.json())
-        .then((responseJson) => {
-          const editedList = markerList.map(marker => marker._id === responseJson.updatedSpot._id ? responseJson.updatedSpot :  marker)
-          this.setState({markers: editedList});
+        .then(async(responseJson) => {
+          //console.log("response id is:",responseJson.updatedSpot._id, "state marker ids are", this.state.markers)
+          const editedList =  markerList.map((marker) =>
+          marker._id === responseJson.updatedSpot._id
+          ? responseJson.updatedSpot
+          : marker
+              );
+              if (this.props.shouldRerender === responseJson.updatedSpot._id) editedList.push(responseJson.updatedSpot);
+              //console.log("newList is",editedList)
+              this.setState({ markers:editedList });
         });
-
     }
   }
 
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.shouldRerender !== this.props.shouldRerender) {
+  //     this.fetchMarkerList(this.props.shouldRerender);
+  //   }
+  // }
   componentDidMount() {
     this.fetchMarkerList();
   }
