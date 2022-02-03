@@ -85,9 +85,10 @@ router.post("/upload-pic", auth, upload.single("files"), async (req, res) => {
     cloudinary.uploader
       .upload(data.image.path)
       .then(async (result) => {
-        // console.log("result.url is: ", result.url);
+         //console.log("result is: ", result);
         const newSpot = new Spot({
           _id: new mongoose.Types.ObjectId(),
+          pub_id:result.public_id,
           name: req.body.name,
           lat: req.body.lat,
           lng: req.body.lng,
@@ -127,10 +128,11 @@ router.post("/upload-pic", auth, upload.single("files"), async (req, res) => {
   }
 });
 router.delete("/delete", auth, async (req, res) => {
-  // console.log("req.body is",req.body)
-  const deleted = req.body.id;
+   console.log("req.body is ",req.body)
+   
+   cloudinary.uploader.destroy(req.body.pub_id, function(result) { console.log(result) })
   await Spot.deleteOne({ _id: req.body.id })
-    .then(
+  .then(
       res.status(200).json({
         message: "Deletion successful",
         id: 'deleted',

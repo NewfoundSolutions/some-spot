@@ -14,28 +14,35 @@ class App extends React.Component {
       loggedIn: null,
       email: "",
       error: "",
-      shouldRerender: 'false'
+      shouldRerender: "false",
     };
   }
   componentDidMount() {
-  if (this.state.loggedIn === null || this.state.email === "") {
+    if (this.state.loggedIn === null || this.state.email === "") {
       axios
         .get("/users/checkToken")
         .then((res) => {
           res.data.email
-            ? this.setState({ loggedIn: true, email: res.data.email })
-            : this.setState({ loggedIn: false, email: "" });
+            ? this.setState(() => {
+                return { loggedIn: true, email: res.data.email };
+              })
+            : this.setState(() => {
+                return { loggedIn: false, email: "" };
+              });
         })
         .catch((err) => console.log(err));
     }
   }
 
-  newMarkerPosted(newMarkerID){
-
-    this.setState({shouldRerender: newMarkerID})
+  newMarkerPosted(newMarkerID) {
+    this.setState(() => {
+      return { shouldRerender: newMarkerID };
+    });
   }
   updateActive(t) {
-    this.setState(t);
+    this.setState(() => {
+      return t; 
+    });
     //todo: Sanity checking
   }
   render() {

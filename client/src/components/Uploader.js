@@ -21,8 +21,10 @@ class Uploader extends React.Component {
     let exy = await exifr.gps(targetImage[0]);
     exy === undefined
       ? console.log("no gps info in image")
-      : this.setState({ lat: exy.latitude, lng: exy.longitude });
-    this.setState({ selectedFile: targetImage[0] });
+      : this.setState(() => {
+        return{ lat: exy.latitude, lng: exy.longitude }});
+    this.setState(() => {
+      return{ selectedFile: targetImage[0] }});
   };
 
   onFileUpload = async (e) => {
@@ -71,7 +73,8 @@ class Uploader extends React.Component {
               name="name"
               id="name"
               onChange={(e) => {
-                this.setState({ name: e.target.value });
+                this.setState(() => {
+                  return{ name: e.target.value }})
               }}
               placeholder="Name the Spot"
             />
@@ -88,7 +91,8 @@ class Uploader extends React.Component {
               rows="4"
               placeholder="Describe the spot, your memories or anything else you would like to tag this pin with."
               onChange={(e) => {
-                this.setState({ desc: e.target.value });
+                this.setState(() => {
+                  return{ desc: e.target.value }});
               }}
             />
           </InputGroup>

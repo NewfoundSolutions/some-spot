@@ -5,6 +5,9 @@ import accountAdd from '@iconify/icons-line-md/account-add';
 import { useState } from "react";
 import axios from "axios";
 
+
+// TODO: implement RegEx for password validation: 
+// const regex = /^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{6,})\S$/;
 const iconStyle = {
   color: "#006400",
   fontSize: "1.5rem",

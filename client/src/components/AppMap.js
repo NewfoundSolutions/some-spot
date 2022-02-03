@@ -33,13 +33,15 @@ class AppMap extends React.Component {
     this.props.updateActive(v);
   }
   activeMarker = (v) => {
-    this.setState(v);
+    this.setState(() => {
+      return v;
+    });
   };
 
   toggleSidebar = (v) => {
     if (this.state.barOpen !== v) {
-      this.setState({
-        barOpen: v,
+      this.setState(() => {
+        return { barOpen: v };
       });
     }
   };
@@ -59,16 +61,19 @@ class AppMap extends React.Component {
       const markerList = this.state.markers.slice();
       fetch(`/markers/list/${id}`)
         .then((res) => res.json())
-        .then(async(responseJson) => {
+        .then((responseJson) => {
           //console.log("response id is:",responseJson.updatedSpot._id, "state marker ids are", this.state.markers)
-          const editedList =  markerList.map((marker) =>
-          marker._id === responseJson.updatedSpot._id
-          ? responseJson.updatedSpot
-          : marker
-              );
-              if (this.props.shouldRerender === responseJson.updatedSpot._id) editedList.push(responseJson.updatedSpot);
-              //console.log("newList is",editedList)
-              this.setState({ markers:editedList });
+          const editedList = markerList.map((marker) =>
+            marker._id === responseJson.updatedSpot._id
+              ? responseJson.updatedSpot
+              : marker
+          );
+          if (this.props.shouldRerender === responseJson.updatedSpot._id)
+            editedList.push(responseJson.updatedSpot);
+          //console.log("newList is",editedList)
+          this.setState(() => {
+            return { markers: editedList };
+          });
         });
     }
   }

@@ -47,9 +47,15 @@ function EditSidebar(props) {
     };
     const handleDelete = (e) => {
       e.preventDefault();
-      // console.log("deleting id:", props.id);
+       const re = new RegExp('(?<=http://res.cloudinary.com/nfsol/image/upload/c_crop,w_300,c_fill/).*?(?=.jpg)');
+       const matched = props.url.match(re)
+       const pub_id = matched[0].slice((matched[0].indexOf('/')+1),)
+      
+       //http://res.cloudinary.com/nfsol/image/upload/c_crop,w_300,c_fill/v1643915461/qisqkavo0jp9bsa8gnlx.jpg
+      // http://res.cloudinary.com/nfsol/image/upload/v1643915461/qisqkavo0jp9bsa8gnlx.jpg
+       console.log("deleting ids:", props.id, pub_id);
       axios
-        .delete("/markers/delete", { data: { id: props.id } })
+        .delete("/markers/delete", { data: { id: props.id, pub_id:pub_id } })
         .then(props.updateMarker('deleted'))
         .then(props.handleClose);
     };
